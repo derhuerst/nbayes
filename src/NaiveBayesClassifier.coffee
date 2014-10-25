@@ -51,8 +51,9 @@ class NaiveBayesClassifier
 		categoryTokens = @tokens[category]
 
 		for token, frequency of @tokenFrequency expression
-			@vocabulary[token] = true
-			@vocabularySize++
+			if not @vocabulary[token]
+				@vocabulary[token] = true
+				@vocabularySize++
 
 			if not categoryTokens.frequency[token]
 				categoryTokens.frequency[token] = 0
