@@ -47,20 +47,20 @@ NaiveBayesClassifier = (function() {
   };
 
   NaiveBayesClassifier.prototype.categories = function(expression) {
-    var category, categoryProbability, categoryTokens, data, frequency, frequencyTable, result, token, tokenProbability, _i, _len, _ref;
+    var category, categoryTokens, data, frequency, frequencyTable, probability, result, token, tokenProbability, _i, _len, _ref;
     result = {};
     frequencyTable = this.tokenFrequency(expression);
     _ref = this.expressions;
     for (category in _ref) {
       data = _ref[category];
-      categoryProbability = data.count / this.expressionsSize;
+      probability = Math.log(data.count / this.expressionsSize);
       categoryTokens = this.tokens[category];
       for (frequency = _i = 0, _len = frequencyTable.length; _i < _len; frequency = ++_i) {
         token = frequencyTable[frequency];
         tokenProbability = (categoryTokens.frequency[token] + 1) / (categoryTokens.count + this.vocabularySize);
-        categoryProbability += frequency * tokenProbability;
+        probability += frequency * Math.log(tokenProbability);
       }
-      result[category] = categoryProbability;
+      result[category] = probability;
     }
     return result;
   };
