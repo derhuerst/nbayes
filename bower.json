@@ -1,14 +1,7 @@
 {
 	"name": "nbayes",
-	"version": "1.0.0",
+	"description": "A Naive Bayes Classifier written in CoffeeScript.",
 	"main": "dist/nbayes.js",
-	"license": "MIT",
-	"ignore": [
-		"package.json",
-		".editorconfig",
-		".DS_Store",
-		"gulpfile.js"
-	],
 	"keywords": [
 		"nbayes",
 		"naive",
@@ -20,5 +13,22 @@
 		"nlp",
 		"nlu",
 		"coffeescript"
+	],
+	"author": {
+		"name": "Jannis R",
+		"email": "mail@jannisr.de",
+		"url": "http://jannisr.de"
+	},
+	"homepage": "https://github.com/derhuerst/nbayes",
+	"repository": {
+		"type": "git",
+		"url": "git://github.com/derhuerst/nbayes.git"
+	},
+	"license": "MIT",
+	"ignore": [
+		"package.json",
+		".editorconfig",
+		".DS_Store",
+		"gulpfile.js"
 	]
 }

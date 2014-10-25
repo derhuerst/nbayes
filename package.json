@@ -20,6 +20,7 @@
 		"email": "mail@jannisr.de",
 		"url": "http://jannisr.de"
 	},
+	"homepage": "https://github.com/derhuerst/nbayes",
 	"repository": {
 		"type": "git",
 		"url": "git://github.com/derhuerst/nbayes.git"
