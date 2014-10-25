@@ -38,6 +38,9 @@ classifier.learn 'negative', 'terrible, shitty thing. Damn. Sucks!!'
 
 # now ask it to categorize a document it has never seen before
 classifier.categorize 'awesome, cool, amazing!! Yay.'
+# -> 'positive'
+
+classifier.categories 'shitty, terrible thing!'
 # gives you a hash of numbers indicating the similarity to each category
 ```
 
