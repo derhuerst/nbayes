@@ -1,6 +1,6 @@
 # *nbayes*
 
-**A Naive Bayes Classifier written in CoffeeScript.** *nbayes* takes a document (piece of text), and tells you what category that document belongs to.
+**A Naive Bayes Classifier written in CoffeeScript.** *nbayes* takes a document (piece of text), and tells you what category that document belongs to. This is essentially a rewrite of [ttezel/bayes](https://github.com/ttezel/bayes).
 
 
 ##What can I use this for?
