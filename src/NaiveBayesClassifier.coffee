@@ -24,7 +24,7 @@ class NaiveBayesClassifier
 
 
 
-	constructor: () ->
+	constructor: (tokenize) ->
 		@vocabulary = {}
 		@vocabularySize = 0
 
@@ -32,6 +32,8 @@ class NaiveBayesClassifier
 		@expressionsSize = 0
 
 		@tokens = {}
+
+		@tokenize = tokenize if tokenize
 
 
 
@@ -88,9 +90,13 @@ class NaiveBayesClassifier
 
 
 
+	tokenize: (expression) ->
+		return expression.replace(/[^\w\s]/g, ' ').split /\s+/
+
+
 	tokenFrequency: (expression) ->
 		result = {}
-		for token in expression.replace(/[^\w\s]/g, ' ').split /\s+/
+		for token in @tokenize expression
 			if not result[token]
 				result[token] = 0
 			result[token]++

@@ -25,6 +25,9 @@ npm install nbayes
 NBayes = require 'nbayes'
 
 classifier = new NBayes()
+# alternatively, you can use a custom tokenizer:
+classifier = new NBayes (expression) ->
+	return expression.split '.'
 
 # teach it positive phrases
 classifier.learn 'positive', 'amazing, awesome movie!! Yeah!! Oh boy.'

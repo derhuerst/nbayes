@@ -1,12 +1,15 @@
 var NaiveBayesClassifier;
 
 NaiveBayesClassifier = (function() {
-  function NaiveBayesClassifier() {
+  function NaiveBayesClassifier(tokenize) {
     this.vocabulary = {};
     this.vocabularySize = 0;
     this.expressions = {};
     this.expressionsSize = 0;
     this.tokens = {};
+    if (tokenize) {
+      this.tokenize = tokenize;
+    }
   }
 
   NaiveBayesClassifier.prototype.learn = function(category, expression) {
@@ -75,10 +78,14 @@ NaiveBayesClassifier = (function() {
     return result;
   };
 
+  NaiveBayesClassifier.prototype.tokenize = function(expression) {
+    return expression.replace(/[^\w\s]/g, ' ').split(/\s+/);
+  };
+
   NaiveBayesClassifier.prototype.tokenFrequency = function(expression) {
     var result, token, _i, _len, _ref;
     result = {};
-    _ref = expression.replace(/[^\w\s]/g, ' ').split(/\s+/);
+    _ref = this.tokenize(expression);
     for (_i = 0, _len = _ref.length; _i < _len; _i++) {
       token = _ref[_i];
       if (!result[token]) {
