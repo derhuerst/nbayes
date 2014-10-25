@@ -33,8 +33,10 @@ NaiveBayesClassifier = (function() {
     _ref = this.tokenFrequency(expression);
     for (token in _ref) {
       frequency = _ref[token];
-      this.vocabulary[token] = true;
-      this.vocabularySize++;
+      if (!this.vocabulary[token]) {
+        this.vocabulary[token] = true;
+        this.vocabularySize++;
+      }
       if (!categoryTokens.frequency[token]) {
         categoryTokens.frequency[token] = 0;
       }
