@@ -1,0 +1,6 @@
+.DS_Store
+.bower.json
+*.sublime-workspace
+
+/bower_components
+/node_modules

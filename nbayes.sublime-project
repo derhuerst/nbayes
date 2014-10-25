@@ -1,0 +1,32 @@
+{
+	"folders": [
+		{
+			"path": ".",
+			"name": "nbayes",
+			"folder_exclude_patterns": [
+				"src",
+				"dist",
+				"test"
+			],
+			"file_exclude_patterns": [
+				"*.sublime-workspace"
+			]
+		},
+		{
+			"path": "./src",
+			"name": "src"
+		},
+		{
+			"path": "./dist",
+			"name": "dist"
+		},
+		{
+			"path": "./test",
+			"name": "test"
+		}
+	],
+	"settings": {
+		"tab_size": 4,
+		"translate_tabs_to_spaces": false
+	}
+}

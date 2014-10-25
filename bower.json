@@ -1,0 +1,24 @@
+{
+	"name": "nbayes",
+	"version": "0.1.0",
+	"main": "dist/nbayes.js",
+	"license": "MIT",
+	"ignore": [
+		"package.json",
+		".editorconfig",
+		".DS_Store",
+		"gulpfile.js"
+	],
+	"keywords": [
+		"nbayes",
+		"naive",
+		"bayes",
+		"classifier",
+		"classify",
+		"categorizer",
+		"categorize",
+		"nlp",
+		"nlu",
+		"coffeescript"
+	]
+}
