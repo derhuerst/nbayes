@@ -1,0 +1,28 @@
+{
+	"name": "nbayes",
+	"description": "A Naive Bayes Classifier written in CoffeeScript.",
+	"version": "1.0.0",
+	"main": "dist/nbayes.js",
+	"keywords": [
+		"nbayes",
+		"naive",
+		"bayes",
+		"classifier",
+		"classify",
+		"categorizer",
+		"categorize",
+		"nlp",
+		"nlu",
+		"coffeescript"
+	],
+	"author": {
+		"name": "Jannis R",
+		"email": "mail@jannisr.de",
+		"url": "http://jannisr.de"
+	},
+	"repository": "derhuerst/nbayes",
+	"license": "MIT",
+	"scripts": [
+		"dist/nbayes.js"
+	]
+}
