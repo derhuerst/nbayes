@@ -14,7 +14,9 @@ You can use *nbayes* for categorizing any text content into any arbitrary set of
 
 ## Installing
 
-coming soon!
+```
+npm install nbayes
+```
 
 
 ## Getting Started
