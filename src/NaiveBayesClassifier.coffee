@@ -69,12 +69,12 @@ class NaiveBayesClassifier
 		frequencyTable = @tokenFrequency expression
 
 		for category, data of @expressions
-			probability = Math.log data.count / @expressionsSize
+			probability = data.count / @expressionsSize
 
 			categoryTokens = @tokens[category]
-			for token, frequency in frequencyTable
-				tokenProbability = (categoryTokens.frequency[token] + 1) / (categoryTokens.count + @vocabularySize)
-				probability += frequency * Math.log tokenProbability
+			for token, frequency of frequencyTable
+				tokenProbability = ((categoryTokens.frequency[token] or 0) + 1) / (categoryTokens.count + @vocabularySize)
+				probability *= Math.pow tokenProbability, frequency
 
 			result[category] = probability
 		return result
@@ -91,13 +91,10 @@ class NaiveBayesClassifier
 
 
 
-	tokenize: (expression) ->
-		return expression.replace(/[^\w\s]/g, ' ').split /\s+/
-
-
 	tokenFrequency: (expression) ->
 		result = {}
-		for token in @tokenize expression
+		for token in expression.replace(/[^\w\s]/g, ' ').split /\s+/
+			continue if token is ''
 			if not result[token]
 				result[token] = 0
 			result[token]++

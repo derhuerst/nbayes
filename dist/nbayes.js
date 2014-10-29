@@ -47,18 +47,18 @@ NaiveBayesClassifier = (function() {
   };
 
   NaiveBayesClassifier.prototype.categories = function(expression) {
-    var category, categoryTokens, data, frequency, frequencyTable, probability, result, token, tokenProbability, _i, _len, _ref;
+    var category, categoryTokens, data, frequency, frequencyTable, probability, result, token, tokenProbability, _ref;
     result = {};
     frequencyTable = this.tokenFrequency(expression);
     _ref = this.expressions;
     for (category in _ref) {
       data = _ref[category];
-      probability = Math.log(data.count / this.expressionsSize);
+      probability = data.count / this.expressionsSize;
       categoryTokens = this.tokens[category];
-      for (frequency = _i = 0, _len = frequencyTable.length; _i < _len; frequency = ++_i) {
-        token = frequencyTable[frequency];
-        tokenProbability = (categoryTokens.frequency[token] + 1) / (categoryTokens.count + this.vocabularySize);
-        probability += frequency * Math.log(tokenProbability);
+      for (token in frequencyTable) {
+        frequency = frequencyTable[token];
+        tokenProbability = ((categoryTokens.frequency[token] || 0) + 1) / (categoryTokens.count + this.vocabularySize);
+        probability *= Math.pow(tokenProbability, frequency);
       }
       result[category] = probability;
     }
@@ -80,16 +80,15 @@ NaiveBayesClassifier = (function() {
     return result;
   };
 
-  NaiveBayesClassifier.prototype.tokenize = function(expression) {
-    return expression.replace(/[^\w\s]/g, ' ').split(/\s+/);
-  };
-
   NaiveBayesClassifier.prototype.tokenFrequency = function(expression) {
     var result, token, _i, _len, _ref;
     result = {};
-    _ref = this.tokenize(expression);
+    _ref = expression.replace(/[^\w\s]/g, ' ').split(/\s+/);
     for (_i = 0, _len = _ref.length; _i < _len; _i++) {
       token = _ref[_i];
+      if (token === '') {
+        continue;
+      }
       if (!result[token]) {
         result[token] = 0;
       }
