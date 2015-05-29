@@ -1,6 +1,8 @@
 .DS_Store
-.bower.json
-*.sublime-workspace
+Thumbs.db
 
-/bower_components
-/node_modules
+.nvm-version
+node_modules
+npm-debug.log
+
+nbayes.sublime-workspace

@@ -1,7 +1,7 @@
 {
 	"name": "nbayes",
 	"description": "A Naive Bayes Classifier written in CoffeeScript.",
-	"main": "dist/nbayes.js",
+	"main": "dist/nbayes.min.js",
 	"keywords": [
 		"nbayes",
 		"naive",
@@ -12,6 +12,7 @@
 		"categorize",
 		"nlp",
 		"nlu",
+		"spam"
 		"coffeescript"
 	],
 	"author": {
@@ -26,9 +27,18 @@
 	},
 	"license": "MIT",
 	"ignore": [
-		"package.json",
-		".editorconfig",
 		".DS_Store",
-		"gulpfile.js"
+		"Thumbs.db",
+		".nvm-version",
+		"node_modules",
+		"npm-debug.log",
+		"src/",
+		".editorconfig",
+		".gitignore",
+		".npmignore",
+		".travis.yml",
+		"gulpfile.coffee",
+		"nbayes.sublime-project",
+		"nbayes.sublime-workspace"
 	]
 }

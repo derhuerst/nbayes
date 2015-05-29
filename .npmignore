@@ -1,8 +1,15 @@
-.editorconfig
 .DS_Store
-.bower.json
+Thumbs.db
 
-gulpfile.js
+.nvm-version
+node_modules
+npm-debug.log
 
-/bower_components
-/node_modules
+src/
+.editorconfig
+.gitignore
+.travis.yml
+bower.json
+gulpfile.coffee
+nbayes.sublime-project
+nbayes.sublime-workspace

@@ -28,5 +28,15 @@
 	"settings": {
 		"tab_size": 4,
 		"translate_tabs_to_spaces": false
-	}
+	},
+	"build_systems": [
+		{
+			"name": "nbayes: build dist files",
+			"cmd": ["npm run dist"]
+		},
+		{
+			"name": "nbayes: run tests",
+			"cmd": ["npm test"]
+		}
+	]
 }
