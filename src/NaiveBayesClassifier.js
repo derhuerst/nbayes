@@ -1,95 +1,11 @@
-var Vocabulary = {
-
-	init: function () {
-		this._w = {};
-		this.size = 0;
-
-		return this;
-	},
+Vocabulary =	require('./Vocabulary.js')
+BagOfWords =	require('./BagOfWords.js')
 
 
 
-	// Add a word `w`.
-	add: function (w) {
-		if (!this._w[w]) {
-			this._w[w] = true;
-			this.size++;
-		}
-
-		return this;
-	},
-
-	has: function (w) {
-		return !!this._w[w];
-	},
 
 
-
-	addBagOfWords: function (bagOfWords) {
-		var i;
-
-		for (i in bagOfWords._i) {
-			this.add(i);
-		}
-
-		return this;
-	},
-
-};
-
-
-
-var BagOfWords = {
-
-	init: function () {
-		this._i = {};
-		this.total = 0;
-
-		return this;
-	},
-
-
-
-	increase: function (item, n) {
-		if (!this._i[item])
-			this._i[item] = n;
-		else
-			this._i[item] += n;
-		this.total += n;
-
-		return this;
-	},
-
-	get: function (item) {
-		return this._i[item] || 0;
-	},
-
-
-
-	addBagOfWords: function (bagOfWords) {
-		var i;
-
-		for (i in bagOfWords._i) {
-			this.increase(i, bagOfWords._i[i]);
-		}
-
-		return this;
-	},
-
-	addWords: function (words) {
-		var i, length;
-		for (i = 0, length = words.length; i < length; i++) {
-			this.increase(words[i], 1);
-		}
-
-		return this;
-	},
-
-};
-
-
-
-var NaiveBayesClassifier = module.exports = {
+module.exports = {
 
 	// 'one one' -> 'foo'
 	// 'one two' -> 'bar'
