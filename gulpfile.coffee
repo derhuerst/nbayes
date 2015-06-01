@@ -26,8 +26,6 @@ gulp.task 'build', () ->
 	return browserify
 		entries: "./src/NaiveBayesClassifier.js"
 		standalone: pkg.name
-		noparse: true
-		hasExports: false
 	.bundle()
 	.pipe source "#{pkg.name}.js"
 	.pipe buffer()

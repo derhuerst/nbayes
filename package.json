@@ -2,7 +2,7 @@
 	"name": "nbayes",
 	"description": "A Naive Bayes Classifier written in CoffeeScript.",
 	"version": "2.0.0",
-	"main": "dist/nbayes.js",
+	"main": "src/NaiveBayesClassifier.js",
 	"keywords": [
 		"nbayes",
 		"naive",
@@ -42,7 +42,8 @@
 	},
 	"scripts": {
 		"build": "gulp",
-		"test": "mocha --compilers coffee:coffee-script/register"
+		"test": "mocha --compilers coffee:coffee-script/register",
+		"prepublish": "npm run build && npm test"
 	},
 	"engine": "node >= 0.10"
 }
