@@ -1,12 +1,12 @@
-# *nbayes*
+# nbayes
 
-***nbayes* is a lightweight [Naive Bayes Classifier](https://www.youtube.com/watch?v=DdYSMwEWbd4) written in vanilla JavaScript.** It offers a simple and straightforward API and embraces [prototypal programming](http://davidwalsh.name/javascript-objects-deconstruction#simpler-object-object), keeping it **below 7kb (minified)**. *nbayes* is an **[MIT-licensed](LICENSE)** rewrite of [ttezel/bayes](https://github.com/ttezel/bayes).
-
-A Naive Bayes Classifier classifies a document (a piece of text) among the classes it has been trained with before. **You can use *nbayes* for categorizing any text content** into any arbitrary **set of classes**. For example:
+***nbayes* is a lightweight [Naive Bayes Classifier](https://www.youtube.com/watch?v=DdYSMwEWbd4) written in vanilla JavaScript.** It classifies a document (arbitrary piece of text) among the classes (arbitrary names) it has been trained with before. This is not black magic, but [pure mathematics](https://www.youtube.com/watch?v=DdYSMwEWbd4). As an example, you could use *nbayes* to answer the following questions.
 
 - Is an email **spam**, or **not spam** ?
 - Is a news article about **technology**, **politics**, or **sports** ?
 - Does a piece of text express **positive** emotions, or **negative** emotions?
+
+*nbayes* offers a simple and straightforward API and embraces [prototypal programming](http://davidwalsh.name/javascript-objects-deconstruction#simpler-object-object), keeping it **below 3kb (minified)**. It is an **[MIT-licensed](LICENSE)** rewrite of [ttezel/bayes](https://github.com/ttezel/bayes) and [thoroughly unit-tested](test/).
 
 
 ## Installing
@@ -50,6 +50,4 @@ coming soon!
 
 ## Contributing
 
-If you **have a question**, **found a bug** or want to **propose a feature**, have a look at [the issues page](https://github.com/derhuerst/velo/issues).
-
-If you contribute code, pleace respect [the coding style of this project](docs/styleguide.md).
+If you **have a question**, **found a bug** or want to **propose a feature**, have a look at [the issues page](https://github.com/derhuerst/nbayes/issues).
