@@ -1,5 +1,9 @@
 # nbayes
 
+![npm version](https://img.shields.io/npm/v/nbayes.svg)
+![node version](https://img.shields.io/node/v/nbayes.svg)
+![bower version](https://img.shields.io/bower/v/nbayes.svg)
+
 ***nbayes* is a lightweight [Naive Bayes Classifier](https://www.youtube.com/watch?v=DdYSMwEWbd4) written in vanilla JavaScript.** It classifies a document (arbitrary piece of text) among the classes (arbitrary names) it has been trained with before. This is not black magic, but [pure mathematics](https://www.youtube.com/watch?v=DdYSMwEWbd4). As an example, you could use *nbayes* to answer the following questions.
 
 - Is an email **spam**, or **not spam** ?
