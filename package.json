@@ -42,9 +42,9 @@
 		"mocha-tldr-reporter":	"^1.0.0"
 	},
 	"scripts": {
-		"build": "gulp",
+		"dist": "gulp",
 		"test": "mocha --compilers coffee:coffee-script/register --reporter mocha-tldr-reporter",
-		"prepublish": "npm run build && npm test"
+		"prepublish": "npm run dist && npm test"
 	},
 	"engine": "node >= 0.10"
 }
