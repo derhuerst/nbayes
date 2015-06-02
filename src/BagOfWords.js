@@ -12,6 +12,8 @@ module.exports = {
 
 
 	set: function (item, n) {
+		if (item === '') return this;
+
 		this._i[item] = n;
 
 		return this;
@@ -22,6 +24,8 @@ module.exports = {
 	},
 
 	increase: function (item, n) {
+		if (item === '') return this;
+
 		if (!this._i[item])
 			this._i[item] = n;
 		else

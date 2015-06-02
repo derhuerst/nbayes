@@ -16,6 +16,8 @@ module.exports = {
 	},
 
 	add: function (word) {
+		if (item === '') return this;
+
 		if (!this._w[word]) {
 			this._w[word] = true;
 			this.size++;
