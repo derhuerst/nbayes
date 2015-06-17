@@ -49,7 +49,7 @@ console.log classifier.probabilities 'shitty, terrible thing!'
 
 ## Documentation
 
-coming soon!
+[coming soon](https://github.com/derhuerst/nbayes/issues/3)!
 
 
 
