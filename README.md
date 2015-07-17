@@ -5,7 +5,7 @@
 [![build status](https://img.shields.io/travis/derhuerst/velo.svg)](https://travis-ci.org/derhuerst/velo)
 [![dev dependency status](https://img.shields.io/david/dev/derhuerst/velo.svg)](https://david-dm.org/derhuerst/velo#info=devDependencies)
 
-***nbayes* is a lightweight [Naive Bayes Classifier](https://www.youtube.com/watch?v=DdYSMwEWbd4) written in vanilla JavaScript.** It classifies a document (arbitrary piece of text) among the classes (arbitrary names) it has been trained with before. This is not black magic, but [pure mathematics](https://www.youtube.com/watch?v=DdYSMwEWbd4). As an example, you could use *nbayes* to answer the following questions.
+***nbayes* is a lightweight [Naive Bayes Classifier](https://www.youtube.com/watch?v=DdYSMwEWbd4) written in vanilla JavaScript.** It classifies a document (arbitrary piece of text) among the classes (arbitrarily named categories) it has been trained with before. This is not black magic, but [pure mathematics](https://www.youtube.com/watch?v=DdYSMwEWbd4). As an example, you could use *nbayes* to answer the following questions.
 
 - Is an email **spam**, or **not spam** ?
 - Is a news article about **technology**, **politics**, or **sports** ?
@@ -23,33 +23,33 @@ npm install nbayes
 
 ## Getting Started
 
-```coffeescript
-NBayes = require 'nbayes'
+```javascript
+var NBayes = require('nbayes');
 
-classifier = Object.create(NBayes).init()
+var classifier = Object.create(NBayes).init();
 
-# teach it positive phrases
-classifier.learn 'positive', 'amazing, awesome movie!! Yeah!! Oh boy.'
-classifier.learn 'positive', 'Sweet, this is incredibly, amazing, perfect, great!!'
+// teach it positive phrases
+classifier.learn('positive', 'amazing, awesome movie!! Yeah!! Oh boy.');
+classifier.learn('positive', 'Sweet, this is incredibly, amazing, perfect, great!!');
 
-# teach it a negative phrase
-classifier.learn 'negative', 'terrible, shitty thing. Damn. Sucks!!'
+// teach it a negative phrase
+classifier.learn('negative', 'terrible, shitty thing. Damn. Sucks!!');
 
-# now ask it to categorize a document
-classifier.classify 'awesome, cool, amazing!! Yay.'
-# -> 'positive'
+// now ask it to categorize a document
+classifier.classify('awesome, cool, amazing!! Yay.');
+// -> 'positive'
 
-console.log classifier.probabilities 'shitty, terrible thing!'
-# -> {
-#     'positive': 0.0000016864529762100512,
-#     'negative': 0.000016075102880658434
-# }
+classifier.probabilities('shitty, terrible thing!');
+// -> {
+//     'positive': 0.0000016864529762100512,
+//     'negative': 0.000016075102880658434
+// }
 ```
 
 
 ## Documentation
 
-[coming soon](https://github.com/derhuerst/nbayes/issues/3)!
+- [*nbayes* API documentation](docs/api.md)
 
 
 

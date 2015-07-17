@@ -7,6 +7,7 @@
 				"src",
 				"dist",
 				"test",
+				"docs",
 				"node_modules"
 			],
 			"file_exclude_patterns": [
@@ -20,6 +21,10 @@
 		{
 			"path": "./dist",
 			"name": "dist"
+		},
+		{
+			"path": "./docs",
+			"name": "docs"
 		},
 		{
 			"path": "./test",
