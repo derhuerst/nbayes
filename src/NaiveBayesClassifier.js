@@ -5,6 +5,9 @@ BagOfWords =	require('./BagOfWords.js')
 
 
 
+/*
+ * `NaiveBayesClassifier` keeps track of how often a specific word occured. It then computes a probability for a word, given every class.
+ */
 module.exports = {
 
 	// 'one one' -> 'foo'
@@ -29,6 +32,7 @@ module.exports = {
 	//     'two': true
 	//     size: 2
 
+	// Initialize the instance.
 	init: function () {
 		this.classes = {};
 		this.documents = 0;
@@ -39,6 +43,7 @@ module.exports = {
 
 
 
+	// Add the document `d` to the class `c`.
 	learn: function (c, d) {
 		var bagOfWords = this._bagOfWords(d);
 		var i;
@@ -58,6 +63,7 @@ module.exports = {
 		return this;
 	},
 
+	// For each stored class, return the probability of the document `d`, given the class. Returns an `Array` of `Number`s.
 	probabilities: function (d) {
 		var b = this._bagOfWords(d);
 		var result = {};
@@ -70,6 +76,7 @@ module.exports = {
 		return result;
 	},
 
+	// For the document `d`, return the class `c` with the highest probability of "`d` given `c`".
 	classify: function (d) {
 		var b = this._bagOfWords(d);
 		var highest = -Infinity;
@@ -89,7 +96,7 @@ module.exports = {
 
 
 
-	// Probability of the bag of words `b` given the class `c`, also called *likelihood*.
+	// Return the probability of the bag of words `b` given the class `c`, also called *likelihood*.
 	_pD: function (c, b) {
 		// Probability of the class `c`, also called *prior*.
 		var result = this.classes[c].documents / this.documents;
@@ -104,6 +111,7 @@ module.exports = {
 		return result;
 	},
 
+	// Create a `BagOfWords` from a document `d`.
 	_bagOfWords: function (d) {
 		var result = Object.create(BagOfWords).init();
 		return result.addWords(d.replace(/[^\w\s]/g, ' ').split(/\s+/));

@@ -1,7 +1,11 @@
+/*
+ * `Vocabulary` can be used to track if a specific words has already occured. It just stores a boolean for each word.
+ */
 module.exports = {
 
 
 
+	// Initialize the instance.
 	init: function () {
 		this._w = {};
 		this.size = 0;
@@ -11,10 +15,12 @@ module.exports = {
 
 
 
+	// Return if the stored value for `word` is `true`-ish.
 	has: function (word) {
 		return this._w.hasOwnProperty(word) && !!this._w[word];
 	},
 
+	// Store `true` for `word`.
 	add: function (word) {
 		if (word === '') return this;
 
@@ -28,6 +34,7 @@ module.exports = {
 
 
 
+	// `add` every word in the `bagOfWords` to this instance.
 	addBagOfWords: function (bagOfWords) {
 		var i;
 
@@ -37,7 +44,7 @@ module.exports = {
 		}
 
 		return this;
-	},
+	}
 
 
 
