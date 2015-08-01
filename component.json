@@ -1,7 +1,7 @@
 {
 	"name": "nbayes",
 	"description": "A Naive Bayes Classifier written in CoffeeScript.",
-	"version": "2.0.2",
+	"version": "2.0.3",
 	"main": "dist/nbayes.min.js",
 	"keywords": [
 		"nbayes",

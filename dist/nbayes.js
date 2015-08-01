@@ -1,4 +1,4 @@
-// nbayes | Jannis R | v2.0.2 | https://github.com/derhuerst/nbayes
+// nbayes | Jannis R | v2.0.3 | https://github.com/derhuerst/nbayes
 
 
 
