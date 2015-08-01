@@ -5,81 +5,8 @@
 
 
 (function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.nbayes = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
-/*
- * `BagOfWords` can be used to count how often a specific word occurs.
- */
-module.exports = {
-
-
-
-	// Initialize the instance.
-	init: function () {
-		this._i = {};
-		this.total = 0;
-
-		return this;
-	},
-
-
-
-	// Set the counter for `item` to `n`.
-	set: function (item, n) {
-		if (item === '') return this;
-
-		this._i[item] = n;
-
-		return this;
-	},
-
-	// Return the counter for `item`.
-	get: function (item) {
-		return this._i[item] || 0;
-	},
-
-	// Add `n` to the counter for `item`.
-	increase: function (item, n) {
-		if (item === '') return this;
-
-		if (!this._i[item])
-			this._i[item] = n;
-		else
-			this._i[item] += n;
-		this.total += n;
-
-		return this;
-	},
-
-
-
-	// Add the value of each counter in another `bagOfWords` to this instance.
-	addBagOfWords: function (bagOfWords) {
-		var i;
-
-		for (i in bagOfWords._i) {
-			if (!bagOfWords._i.hasOwnProperty(i)) continue;
-			this.increase(i, bagOfWords.get(i));
-		}
-
-		return this;
-	},
-
-	// Increase the counter for each word in `words` by `1`.
-	addWords: function (words) {
-		var i, length;
-		for (i = 0, length = words.length; i < length; i++) {
-			this.increase(words[i], 1);
-		}
-
-		return this;
-	}
-
-
-
-};
-
-},{}],2:[function(require,module,exports){
-Vocabulary =	require('./Vocabulary.js')
-BagOfWords =	require('./BagOfWords.js')
+var Vocabulary =	require('./Vocabulary.js')
+var BagOfWords =	require('./BagOfWords.js')
 
 
 
@@ -201,7 +128,80 @@ module.exports = {
 
 };
 
-},{"./BagOfWords.js":1,"./Vocabulary.js":3}],3:[function(require,module,exports){
+},{"./BagOfWords.js":2,"./Vocabulary.js":3}],2:[function(require,module,exports){
+/*
+ * `BagOfWords` can be used to count how often a specific word occurs.
+ */
+module.exports = {
+
+
+
+	// Initialize the instance.
+	init: function () {
+		this._i = {};
+		this.total = 0;
+
+		return this;
+	},
+
+
+
+	// Set the counter for `item` to `n`.
+	set: function (item, n) {
+		if (item === '') return this;
+
+		this._i[item] = n;
+
+		return this;
+	},
+
+	// Return the counter for `item`.
+	get: function (item) {
+		return this._i[item] || 0;
+	},
+
+	// Add `n` to the counter for `item`.
+	increase: function (item, n) {
+		if (item === '') return this;
+
+		if (!this._i[item])
+			this._i[item] = n;
+		else
+			this._i[item] += n;
+		this.total += n;
+
+		return this;
+	},
+
+
+
+	// Add the value of each counter in another `bagOfWords` to this instance.
+	addBagOfWords: function (bagOfWords) {
+		var i;
+
+		for (i in bagOfWords._i) {
+			if (!bagOfWords._i.hasOwnProperty(i)) continue;
+			this.increase(i, bagOfWords.get(i));
+		}
+
+		return this;
+	},
+
+	// Increase the counter for each word in `words` by `1`.
+	addWords: function (words) {
+		var i, length;
+		for (i = 0, length = words.length; i < length; i++) {
+			this.increase(words[i], 1);
+		}
+
+		return this;
+	}
+
+
+
+};
+
+},{}],3:[function(require,module,exports){
 /*
  * `Vocabulary` can be used to track if a specific words has already occured. It just stores a boolean for each word.
  */
@@ -254,5 +254,5 @@ module.exports = {
 
 };
 
-},{}]},{},[2])(2)
+},{}]},{},[1])(1)
 });
