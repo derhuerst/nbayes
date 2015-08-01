@@ -1,3 +1,5 @@
+'use strict';
+
 /*
  * `BagOfWords` can be used to count how often a specific word occurs.
  */

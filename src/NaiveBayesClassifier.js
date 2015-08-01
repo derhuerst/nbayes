@@ -1,3 +1,5 @@
+'use strict';
+
 var Vocabulary =	require('./Vocabulary.js')
 var BagOfWords =	require('./BagOfWords.js')
 

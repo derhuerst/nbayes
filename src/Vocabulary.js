@@ -1,3 +1,5 @@
+'use strict';
+
 /*
  * `Vocabulary` can be used to track if a specific words has already occured. It just stores a boolean for each word.
  */
