@@ -1,5 +1,5 @@
-Vocabulary =	require('./Vocabulary.js')
-BagOfWords =	require('./BagOfWords.js')
+var Vocabulary =	require('./Vocabulary.js')
+var BagOfWords =	require('./BagOfWords.js')
 
 
 
