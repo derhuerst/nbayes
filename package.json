@@ -25,7 +25,7 @@
 		"type": "git",
 		"url": "git://github.com/derhuerst/nbayes.git"
 	},
-	"license": "MIT",
+	"license": "ISC",
 	"devDependencies": {
 		"coffee-script":		"^1.9.3",
 		"browserify":			"^11.0.1",
