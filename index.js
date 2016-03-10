@@ -47,7 +47,7 @@ const bagOfWords = function () {
 
 
 
-const wordsFromDoc = (doc) => bagOfWords().addWords(doc
+const stringToDoc = (s) => bagOfWords().addWords(s
 	.replace(/[^\w\s]/g, ' ')
 	.split(/\s+/)
 	.filter((word) => word.length > 0)
@@ -142,4 +142,4 @@ const naiveBayesClassifier = function () {
 
 
 
-module.exports = {bagOfWords, naiveBayesClassifier, wordsFromDoc}
+module.exports = {bagOfWords, naiveBayesClassifier, stringToDoc}

@@ -1,4 +1,4 @@
-{naiveBayesClassifier, bagOfWords, wordsFromDoc} = require './index.js'
+{naiveBayesClassifier, bagOfWords, stringToDoc} = require './index.js'
 
 data =
 	topics: Object.freeze Object.assign [
@@ -122,8 +122,8 @@ exports.bagOfWords =
 
 
 
-exports.wordsFromDoc = (t) ->
-	words = wordsFromDoc ' foo  bar\t foo '
+exports.stringToDoc = (t) ->
+	words = stringToDoc ' foo  bar\t foo '
 	t.strictEqual words.get('foo'),     2
 	t.strictEqual words.get('bar'),     1
 	t.strictEqual words.words().length, 2
@@ -139,28 +139,28 @@ exports.naiveBayesClassifier =
 
 	prior: (t) ->
 		nbc = naiveBayesClassifier()
-		nbc.learn entry[0], wordsFromDoc(entry[1]) for entry in data.sentiment
+		nbc.learn entry[0], stringToDoc(entry[1]) for entry in data.sentiment
 		t.strictEqual nbc.prior('happy'), 2/4
 		t.strictEqual nbc.prior('angry'), 1/4
 		t.done()
 
 	likelihood: (t) ->
 		nbc = naiveBayesClassifier()
-		nbc.learn 'A', wordsFromDoc 'foo bar'
-		nbc.learn 'B', wordsFromDoc 'bar baz bar'
-		nbc.learn 'A', wordsFromDoc 'baz'
+		nbc.learn 'A', stringToDoc 'foo bar'
+		nbc.learn 'B', stringToDoc 'bar baz bar'
+		nbc.learn 'A', stringToDoc 'baz'
 		# -> A: {foo: 1, bar: 1, baz: 1}, B: {bar: 2, baz: 1}
 
-		t.strictEqual nbc.likelihood('A', wordsFromDoc('foo')), 1/3
-		t.strictEqual nbc.likelihood('B', wordsFromDoc('bar')), 3/6
-		t.strictEqual nbc.likelihood('A', wordsFromDoc('foo bar')), 1/9
-		t.strictEqual nbc.likelihood('B', wordsFromDoc('foo bar')), 1/12
+		t.strictEqual nbc.likelihood('A', stringToDoc('foo')), 1/3
+		t.strictEqual nbc.likelihood('B', stringToDoc('bar')), 3/6
+		t.strictEqual nbc.likelihood('A', stringToDoc('foo bar')), 1/9
+		t.strictEqual nbc.likelihood('B', stringToDoc('foo bar')), 1/12
 		t.done()
 
 	probabilities: (t) ->
 		nbc = naiveBayesClassifier()
-		nbc.learn entry[0], wordsFromDoc(entry[1]) for entry in data.topics
-		probs = nbc.probabilities wordsFromDoc data.topics.query
+		nbc.learn entry[0], stringToDoc(entry[1]) for entry in data.topics
+		probs = nbc.probabilities stringToDoc data.topics.query
 
 		t.strictEqual Object.keys(probs).length, 2 # two classes
 		t.strictEqual probs.chinese.toFixed(4),  (.0003).toFixed 4
@@ -170,7 +170,7 @@ exports.naiveBayesClassifier =
 	classify: (t) ->
 		for set in data
 			nbc = naiveBayesClassifier()
-			nbc.learn entry[0], wordsFromDoc(entry[1]) for entry in data.sentiment
-			result = nbc.classify wordsFromDoc data.sentiment.query
+			nbc.learn entry[0], stringToDoc(entry[1]) for entry in data.sentiment
+			result = nbc.classify stringToDoc data.sentiment.query
 			t.strictEqual result, data.sentiment.expected
 		t.done()
