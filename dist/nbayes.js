@@ -1,264 +1,149 @@
-// nbayes | Jannis R | v2.0.3 | https://github.com/derhuerst/nbayes
-
-
-
-
-
 (function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.nbayes = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
-'use strict';
+'use strict'
 
-/*
- * `BagOfWords` can be used to count how often a specific word occurs.
- */
-module.exports = {
+// `bagOfWords` is used to count how often a specific word occurs.
+const bagOfWords = function () {
+	let words = Object.create(null)
+	let sum = 0
 
+	return {
 
+		has: (word) => (word in words),
+		get: (word) => (word in words ? words[word] : 0),
+		set: function (word, count) {
+			sum += count - this.get(word)
+			words[word] = count
+			return this
+		},
+		add: function (word) { return this.increase(word, 1)},
 
-	// Initialize the instance.
-	init: function () {
-		this._i = {};
-		this.total = 0;
+		increase: function (word, delta) {
+			if (arguments.length < 2) delta = 1
+			if (!(word in words)) words[word] = 0
+			words[word] += delta
+			sum += delta
+			return this
+		},
 
-		return this;
-	},
-
-
-
-	// Set the counter for `item` to `n`.
-	set: function (item, n) {
-		if (item === '') return this;
-
-		this._i[item] = n;
-
-		return this;
-	},
-
-	// Return the counter for `item`.
-	get: function (item) {
-		return this._i[item] || 0;
-	},
-
-	// Add `n` to the counter for `item`.
-	increase: function (item, n) {
-		if (item === '') return this;
-
-		if (!this._i[item])
-			this._i[item] = n;
-		else
-			this._i[item] += n;
-		this.total += n;
-
-		return this;
-	},
+		sum: () => sum,
+		words: () => Object.keys(words).filter((k) => words[k] !== 0),
 
 
-
-	// Add the value of each counter in another `bagOfWords` to this instance.
-	addBagOfWords: function (bagOfWords) {
-		var i;
-
-		for (i in bagOfWords._i) {
-			if (!bagOfWords._i.hasOwnProperty(i)) continue;
-			this.increase(i, bagOfWords.get(i));
-		}
-
-		return this;
-	},
-
-	// Increase the counter for each word in `words` by `1`.
-	addWords: function (words) {
-		var i, length;
-		for (i = 0, length = words.length; i < length; i++) {
-			this.increase(words[i], 1);
-		}
-
-		return this;
-	}
-
-
-
-};
-
-},{}],2:[function(require,module,exports){
-'use strict';
-
-var Vocabulary =	require('./Vocabulary.js')
-var BagOfWords =	require('./BagOfWords.js')
-
-
-
-
-
-/*
- * `NaiveBayesClassifier` keeps track of how often a specific word occured. It then computes a probability for a word, given every class.
- */
-module.exports = {
-
-	// 'one one' -> 'foo'
-	// 'one two' -> 'bar'
-	// 'two two' -> 'bar'
-
-	// classes
-	//     'foo'
-	//         words: BagOfWords
-	//             'one': 2
-	//             total: 2
-	//         documents: 1
-	//     'bar'
-	//         words: BagOfWords
-	//             'one': 1
-	//             'two': 3
-	//             total: 4
-	//         documents: 2
-	// documents: 3
-	// vocabulary: Vocabulary
-	//     'one': true
-	//     'two': true
-	//     size: 2
-
-	// Initialize the instance.
-	init: function () {
-		this.classes = {};
-		this.documents = 0;
-		this.vocabulary = Object.create(Vocabulary).init();
-
-		return this;
-	},
-
-
-
-	// Add the document `d` to the class `c`.
-	learn: function (c, d) {
-		var bagOfWords = this._bagOfWords(d);
-		var i;
-
-		if (!this.classes[c]) {
-			this.classes[c] = {
-				words: bagOfWords,
-				documents: 1
-			};
-		} else {
-			this.classes[c].words.addBagOfWords(bagOfWords);
-			this.classes[c].documents++;
-		}
-		this.documents++;
-		this.vocabulary.addBagOfWords(bagOfWords)
-
-		return this;
-	},
-
-	// For each stored class, return the probability of the document `d`, given the class. Returns an `Array` of `Number`s.
-	probabilities: function (d) {
-		var b = this._bagOfWords(d);
-		var result = {};
-
-		var c;
-		for (c in this.classes) {
-			result[c] = this._pD(c, b);
-		}
-
-		return result;
-	},
-
-	// For the document `d`, return the class `c` with the highest probability of "`d` given `c`".
-	classify: function (d) {
-		var b = this._bagOfWords(d);
-		var highest = -Infinity;
-		var result = null;
-
-		var c, p;
-		for (c in this.classes) {
-			p = this._pD(c, b);
-			if (p > highest) {
-				highest = p;
-				result = c;
+		addBagOfWords: function (bagOfWords) {
+			for (let word of bagOfWords.words()) {
+				this.increase(word, bagOfWords.get(word))
 			}
+			return this
+		},
+
+		addWords: function (words) {
+			for (let word of words) {
+				this.increase(word, 1)
+			}
+			return this
 		}
 
-		return result;
-	},
-
-
-
-	// Return the probability of the bag of words `b` given the class `c`, also called *likelihood*.
-	_pD: function (c, b) {
-		// Probability of the class `c`, also called *prior*.
-		var result = this.classes[c].documents / this.documents;
-
-		var w, p;
-		for (w in b._i) {
-			// Probability of the word `w` given the class `c`.
-			p = (this.classes[c].words.get(w) + 1) / (this.classes[c].words.total + this.vocabulary.size);
-			result *= Math.pow(p, b._i[w]);
-		}
-
-		return result;
-	},
-
-	// Create a `BagOfWords` from a document `d`.
-	_bagOfWords: function (d) {
-		var result = Object.create(BagOfWords).init();
-		return result.addWords(d.replace(/[^\w\s]/g, ' ').split(/\s+/));
 	}
+}
 
 
 
-};
-
-},{"./BagOfWords.js":1,"./Vocabulary.js":3}],3:[function(require,module,exports){
-'use strict';
-
-/*
- * `Vocabulary` can be used to track if a specific words has already occured. It just stores a boolean for each word.
- */
-module.exports = {
+const wordsFromDoc = (doc) => bagOfWords().addWords(doc
+	.replace(/[^\w\s]/g, ' ')
+	.split(/\s+/)
+	.filter((word) => word.length > 0)
+)
 
 
 
-	// Initialize the instance.
-	init: function () {
-		this._w = {};
-		this.size = 0;
+// `NaiveBayesClassifier` keeps track of how often a specific word occured by class.
+// For a given document, it then computes the probability of each class.
+const naiveBayesClassifier = function () {
 
-		return this;
-	},
+	// document 'foo foo', class 'A'
+	// document 'foo bar', class 'B'
+	// document 'bar bar', class 'B'
+
+	let wordsByClass = {}
+	// A: bagOfWords(foo: 2)
+	// B: bagOfWords(foo: 1, bar: 3)
+	let words = bagOfWords() // vocabulary of all words
+	let docsByClass = {} // A: 1, B: 2
+	let docs = 0 // list of all docs, 3
+
+	return {
+
+		// Tags words of a document as being of a class.
+		learn: function (_class, wordsInDoc) {
+			if (!(_class in wordsByClass)) wordsByClass[_class] = bagOfWords()
+			wordsByClass[_class].addBagOfWords(wordsInDoc)
+			words.addBagOfWords(wordsInDoc)
+
+			if (!(_class in docsByClass)) docsByClass[_class] = 0
+			docsByClass[_class]++
+			docs++
+
+			return this
+		},
 
 
 
-	// Return if the stored value for `word` is `true`-ish.
-	has: function (word) {
-		return this._w.hasOwnProperty(word) && !!this._w[word];
-	},
+		// Computes the probability of a class out of all classes, also called *prior*.
+		prior: (_class) => (docsByClass[_class] / docs),
 
-	// Store `true` for `word`.
-	add: function (word) {
-		if (word === '') return this;
+		// Computes the probability of a bag of words, given a class, also called *likelihood*.
+		likelihood: function (_class, bag) {
+			let result = 1
+			for (let word of bag.words()) {
 
-		if (!this._w[word]) {
-			this._w[word] = true;
-			this.size++;
+				// Probability of the word given the class.
+				let pOfWord = (
+					wordsByClass[_class].get(word) // # of occurences of `word` in all documents of class `class`
+					+ 1 // Laplace smooting
+				) / (
+					wordsByClass[_class].sum() // # of occurences of all words in all documents if class `class`
+					+ words.words().length  // # of different words in all documents of all classes
+				)
+				// A word may occur more than once in the document.
+				result *= Math.pow(pOfWord, bag.get(word))
+
+			}
+			return result
+		},
+
+
+
+		// For each stored class, returns the probability of the words of a doc, given the class.
+		// Returns an array of numbers.
+		probabilities: function (wordsInDoc) {
+			let result = {}
+			for (let _class in wordsByClass) {
+				result[_class] = this.prior(_class) * this.likelihood(_class, wordsInDoc)
+			}
+			return result
+		},
+
+		// For the words of a document, returns the class with the highest probability.
+		classify: function (wordsInDoc) {
+			let highest = -Infinity, result = null
+
+			for (let _class in wordsByClass) {
+				let probability = this.prior(_class) * this.likelihood(_class, wordsInDoc)
+				if (probability > highest) {
+					highest = probability
+					result = _class
+				}
+			}
+
+			return result
 		}
 
-		return this;
-	},
-
-
-
-	// `add` every word in the `bagOfWords` to this instance.
-	addBagOfWords: function (bagOfWords) {
-		var i;
-
-		for (i in bagOfWords._i) {
-			if (!bagOfWords._i.hasOwnProperty(i)) continue;
-			this.add(i);
-		}
-
-		return this;
 	}
+}
 
 
 
-};
+module.exports = {bagOfWords, naiveBayesClassifier, wordsFromDoc}
 
-},{}]},{},[2])(2)
+},{}]},{},[1])(1)
 });

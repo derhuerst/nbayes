@@ -1,44 +1,18 @@
 {
-	"name": "nbayes",
-	"description": "A Naive Bayes Classifier written in CoffeeScript.",
-	"main": "dist/nbayes.min.js",
-	"keywords": [
-		"nbayes",
-		"naive",
-		"bayes",
-		"classifier",
-		"classify",
-		"categorizer",
-		"categorize",
-		"nlp",
-		"nlu",
-		"spam",
-		"coffeescript"
-	],
-	"author": {
-		"name": "Jannis R",
-		"email": "mail@jannisr.de",
-		"url": "http://jannisr.de"
-	},
-	"homepage": "https://github.com/derhuerst/nbayes",
-	"repository": {
-		"type": "git",
-		"url": "git://github.com/derhuerst/nbayes.git"
-	},
-	"license": "MIT",
+	"name":        "nbayes",
+	"description": "A Naive Bayes Classifier.",
+	"version":     "3.0.0",
+	"main":        "dist/nbayes.min.js",
+	"keywords":    ["naive", "bayes", "classifier", "classify", "categorizer", "categorize", "nlp", "nlu"],
+	"author":      "Jannis R <mail@jannisr.de>",
+	"homepage":    "https://github.com/derhuerst/nbayes",
+	"repository":  "https://github.com/derhuerst/nbayes.git",
+	"license":     "ISC",
 	"ignore": [
-		".DS_Store",
-		"Thumbs.db",
-		".nvm-version",
-		"node_modules",
-		"npm-debug.log",
-		"src/",
-		".editorconfig",
-		".gitignore",
-		".npmignore",
-		".travis.yml",
-		"gulpfile.coffee",
-		"nbayes.sublime-project",
-		"nbayes.sublime-workspace"
+		"*",
+		"!dist/nbayes.js",
+		"!dist/nbayes.min.js",
+		"!README.md",
+		"!license.md"
 	]
 }

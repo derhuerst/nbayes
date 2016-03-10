@@ -1,50 +1,28 @@
 {
-	"name": "nbayes",
-	"description": "A Naive Bayes Classifier written in CoffeeScript.",
-	"version": "2.1.0",
-	"main": "src/NaiveBayesClassifier.js",
-	"keywords": [
-		"nbayes",
-		"naive",
-		"bayes",
-		"classifier",
-		"classify",
-		"categorizer",
-		"categorize",
-		"nlp",
-		"nlu",
-		"coffeescript"
-	],
-	"author": {
-		"name": "Jannis R",
-		"email": "mail@jannisr.de",
-		"url": "http://jannisr.de"
-	},
-	"homepage": "https://github.com/derhuerst/nbayes",
-	"repository": {
-		"type": "git",
-		"url": "git://github.com/derhuerst/nbayes.git"
-	},
-	"license": "ISC",
+	"name":        "nbayes",
+	"description": "A Naive Bayes Classifier.",
+	"version":     "3.0.0",
+	"main":        "./index.js",
+	"files":       ["./index.js"],
+	"keywords":    ["naive", "bayes", "classifier", "classify", "categorizer", "categorize", "nlp", "nlu"],
+	"author":      "Jannis R <mail@jannisr.de>",
+	"homepage":    "https://github.com/derhuerst/nbayes",
+	"repository":  "https://github.com/derhuerst/nbayes.git",
+	"license":     "ISC",
 	"devDependencies": {
-		"coffee-script":		"^1.9.3",
-		"browserify":			"^11.0.1",
-		"gulp":					"^3.9.0",
-		"gulp-buffer":			"^0.0.2",
-		"gulp-gzip":			"^1.2.0",
-		"gulp-header":			"^1.2.2",
-		"gulp-rename":			"^1.2.2",
-		"gulp-size":			"^1.2.3",
-		"gulp-streamify":		"^0.0.5",
-		"gulp-uglify":			"^1.5.1",
-		"vinyl-source-stream":	"^1.1.0",
-		"mocha":				"^2.3.4",
-		"mocha-tldr-reporter":	"^1.0.0"
+		"coffee-script": "^1.10",
+		"nodeunit":      "^0.9.1",
+		"watchy":        "^0.6.6",
+		"browserify":    "^13",
+		"uglify-js":     "mishoo/UglifyJS2#harmony"
 	},
 	"scripts": {
-		"dist": "gulp",
-		"test": "mocha --compilers coffee:coffee-script/register --reporter mocha-tldr-reporter",
-		"prepublish": "npm run dist && npm test"
+		"test":       "nodeunit --reporter minimal test.coffee",
+		"test:watch": "watchy -s -w . nodeunit --reporter minimal test.coffee",
+		"build":      "browserify index.js -s nbayes --bare > dist/nbayes.js",
+		"minify":     "uglifyjs dist/nbayes.js -cm --screw-ie8 > dist/nbayes.min.js",
+		"dist":       "npm run build && npm run minify",
+		"prepublish": "npm test && npm run dist"
 	},
-	"engine": "node >= 0.10"
+	"engine": "node >= 5"
 }
