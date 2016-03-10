@@ -1,17 +1,30 @@
 # nbayes
 
-[![npm version](https://img.shields.io/npm/v/nbayes.svg)](https://www.npmjs.com/package/nbayes)
-[![bower version](https://img.shields.io/bower/v/nbayes.svg)](bower.json)
-[![build status](https://img.shields.io/travis/derhuerst/velo.svg)](https://travis-ci.org/derhuerst/velo)
-[![dev dependency status](https://img.shields.io/david/dev/derhuerst/velo.svg)](https://david-dm.org/derhuerst/velo#info=devDependencies)
-
 ***nbayes* is a lightweight [Naive Bayes Classifier](https://www.youtube.com/watch?v=DdYSMwEWbd4) written in vanilla JavaScript.** It classifies a document (arbitrary piece of text) among the classes (arbitrarily named categories) it has been trained with before. This is not black magic, but [pure mathematics](https://www.youtube.com/watch?v=DdYSMwEWbd4). As an example, you could use *nbayes* to answer the following questions.
 
 - Is an email **spam**, or **not spam** ?
 - Is a news article about **technology**, **politics**, or **sports** ?
 - Does a piece of text express **positive** emotions, or **negative** emotions?
 
+```javascript
+const nbayes = require('nbayes')
+
+let classifier = nbayes()
+classifier.learn('happy',   nbayes.stringToDoc('amazing, awesome movie!! Yeah!! Oh boy.'))
+classifier.learn('happy',   nbayes.stringToDoc('Sweet, this is incredibly amazing, perfect, great!!'))
+classifier.learn('angry',   nbayes.stringToDoc('terrible, shitty thing. Damn. This Sucks!!'))
+classifier.learn('neutral', nbayes.stringToDoc('I dont really know what to make of this.'))
+
+c.classify(c.stringToDoc('awesome, cool, amazing!! Yay.'))
+// -> 'happy'
+```
+
 *nbayes* offers a simple and straightforward API and embraces [prototypal programming](http://davidwalsh.name/javascript-objects-deconstruction#simpler-object-object), keeping it **below 3kb (minified)**. It is an **[MIT-licensed](LICENSE)** rewrite of [ttezel/bayes](https://github.com/ttezel/bayes) and [thoroughly unit-tested](test/).
+
+[![npm version](https://img.shields.io/npm/v/nbayes.svg)](https://www.npmjs.com/package/nbayes)
+[![bower version](https://img.shields.io/bower/v/nbayes.svg)](bower.json)
+[![build status](https://img.shields.io/travis/derhuerst/velo.svg)](https://travis-ci.org/derhuerst/velo)
+[![dev dependency status](https://img.shields.io/david/dev/derhuerst/velo.svg)](https://david-dm.org/derhuerst/velo#info=devDependencies)
 
 
 ## Installing
@@ -21,35 +34,77 @@ npm install nbayes
 ```
 
 
-## Getting Started
+# API
 
-```javascript
-var NBayes = require('nbayes');
 
-var classifier = Object.create(NBayes).init();
+### `nbayes.createDoc()`
 
-// teach it positive phrases
-classifier.learn('positive', 'amazing, awesome movie!! Yeah!! Oh boy.');
-classifier.learn('positive', 'Sweet, this is incredibly, amazing, perfect, great!!');
+Creates a representation of a document, which can be used to track words and their frequencies.
 
-// teach it a negative phrase
-classifier.learn('negative', 'terrible, shitty thing. Damn. Sucks!!');
+#### Example
 
-// now ask it to categorize a document
-classifier.classify('awesome, cool, amazing!! Yay.');
-// -> 'positive'
+```js
+let d = nbayes.createDoc()
+d.set('foo', 2)
+d.add('bar')
+d.increase('bar', 2)
 
-classifier.probabilities('shitty, terrible thing!');
-// -> {
-//     'positive': 0.0000016864529762100512,
-//     'negative': 0.000016075102880658434
-// }
+d.has('FOO') // -> false
+d.get('foo') // -> 2
+d.get('bar') // -> 3
+d.sum() // -> 5
+d.words() // -> 2
+```
+
+#### Methods
+
+- `has(word)`: If `word` has been `add`ed before.
+- `get(word)`: Returns the count of `word`.
+- `set(word, count)`: Sets the count of `word`.
+- `add(word)`: Shorthand for `increase(word, 1)`.
+- `increase(word, d = 1)`: Adds `d` to the count of `word`.
+- `sum`: Returns the sum of all word counts.
+- `words`: Returns the number of *distinct* word.
+
+
+### `nbayes.stringToDoc()`
+
+Returns a [document](#nbayescreatedoc) from the string. Special characters will be ignored.
+
+```js
+nbayes.stringToDoc('awesome, amazing!! Yay.').words()
+// -> ['awesome', 'amazing', 'Yay']
 ```
 
 
-## Documentation
+### `nbayes()`
 
-- [*nbayes* API documentation](docs/api.md)
+Creates a classifier, which can `learn` and then `classify` documents into classes.
+
+#### Example
+
+```js
+let c = nbayes()
+c.learn('happy',   nbayes.stringToDoc('amazing, awesome movie!! Yeah!! Oh boy.'))
+c.learn('happy',   nbayes.stringToDoc('Sweet, this is incredibly amazing, perfect, great!!'))
+c.learn('angry',   nbayes.stringToDoc('terrible, shitty thing. Damn. This Sucks!!'))
+c.learn('neutral', nbayes.stringToDoc('I dont really know what to make of this.'))
+
+c.classify(c.stringToDoc('awesome, cool, amazing!! Yay.'))
+// -> 'happy'
+c.probabilities(c.stringToDoc('awesome, cool, amazing!! Yay.'))
+// -> { happy: 0.000001…,
+//      angry: 2.384…,
+//      neutral: 1.665… }
+```
+
+#### Methods
+
+- `learn(class, doc)`: Tags words of `doc` as being of `class`.
+- `probabilities(doc)`: For each stored class, returns the probability of `doc`, given the class.
+- `classify(doc)`: For `doc`, returns the class with the highest probability.
+- `prior(class)`: Computes the probability of `class` out of all classes.
+- `likelihood(class, doc)`: Computes the probability of `doc`, given `class`.
 
 
 
