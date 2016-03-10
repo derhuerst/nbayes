@@ -1,6 +1,5 @@
 'use strict';
 
-var Vocabulary =	require('./Vocabulary.js')
 var bagOfWords =	require('./BagOfWords.js')
 
 
@@ -38,7 +37,7 @@ module.exports = {
 	init: function () {
 		this.classes = {};
 		this.documents = 0;
-		this.vocabulary = Object.create(Vocabulary).init();
+		this.vocabulary = bagOfWords();
 
 		return this;
 	},
@@ -106,15 +105,18 @@ module.exports = {
 		var w, p;
 		for (w in b._i) {
 			// Probability of the word `w` given the class `c`.
-			p = (this.classes[c].words.get(w) + 1) / (this.classes[c].words.total + this.vocabulary.size);
+			p = (this.classes[c].words.get(w) + 1) / (this.classes[c].words.total + this.vocabulary.words().length);
 			result *= Math.pow(p, b._i[w]);
 		}
 
 		return result;
 	},
 
-	// Create a `BagOfWords` from a document `d`.
-	_bagOfWords: (d) => bagOfWords().addWords(d.replace(/[^\w\s]/g, ' ').split(/\s+/))
+	// Create a `BagOfWords` from a document `doc`.
+	_bagOfWords: (doc) => bagOfWords().addWords(doc
+		.replace(/[^\w\s]/g, ' ')
+		.split(/\s+/).filter((word) => word.length > 0)
+	)
 
 
 

@@ -1,20 +1,35 @@
-assert =			require 'assert'
-
-
-
-
+assert =                require 'assert'
+type =                  require 'is'
 
 NaiveBayesClassifier =	require '../src/NaiveBayesClassifier.js'
+bagOfWords =            require '../src/BagOfWords.js'
+
 naiveBayesClassifier = () ->
 	instance = Object.create NaiveBayesClassifier
 	return instance.init()
 
-Vocabulary =		require '../src/Vocabulary.js'
-vocabulary = () ->
-	instance = Object.create Vocabulary
-	return instance.init()
+isVocabulary = (b) ->
+	return type.fn(b.has) \
+	   and type.fn(b.add) \
+	   and type.fn(b.addBagOfWords)
 
-bagOfWords =		require '../src/BagOfWords.js'
+isBagOfWords = (b) ->
+	return type.fn(b.has) \
+	   and type.fn(b.get) \
+	   and type.fn(b.set) \
+	   and type.fn(b.increase) \
+	   and type.fn(b.sum) \
+	   and type.fn(b.words) \
+	   and type.fn(b.addBagOfWords) \
+	   and type.fn(b.addWords)
+
+data = Object.freeze [
+	{class: 'chinese',  document: 'chinese beijing chinese'}
+	{class: 'chinese',  document: 'chinese chinese shanghai'}
+	{class: 'chinese',  document: 'chinese macao'}
+	{class: 'japanese', document: 'tokyo japan chinese'}
+]
+
 
 
 
@@ -24,35 +39,14 @@ describe 'NaiveBayesClassifier', () ->
 
 
 
-	describe 'init', () ->
-
-		it 'sets `classes` to an empty object', () ->
-			classifier = naiveBayesClassifier()
-			assert.deepEqual {}, classifier.classes
-
-		it 'sets `documents` to `0`', () ->
-			classifier = naiveBayesClassifier()
-			assert.strictEqual 0, classifier.documents
-
-		it 'sets `vocabulary` to a new `Vocabulary` instance', () ->
-			classifier = naiveBayesClassifier()
-			vocabulary = vocabulary()
-			assert.deepEqual vocabulary, classifier.vocabulary
-
-		it 'returns the instance', () ->
-			classifier = naiveBayesClassifier()
-			assert.strictEqual classifier, classifier.init()
-
-
-
 	describe '_bagOfWords', () ->
 
 		it 'returns a correct bag of words', () ->
 			classifier = naiveBayesClassifier()
 			bag = classifier._bagOfWords ' foo  bar\t foo '
 
-			assert.strictEqual 2, bag.get 'foo'
-			assert.strictEqual 1, bag.get 'bar'
+			assert.strictEqual bag.get('foo'), 2
+			assert.strictEqual bag.get('bar'), 1
 
 
 
@@ -61,41 +55,39 @@ describe 'NaiveBayesClassifier', () ->
 		it 'creates and updates `classes[class]` correctly', () ->
 			classifier = naiveBayesClassifier()
 			classifier.learn 'baz', ' foo bar\t foo '
-			bag = classifier._bagOfWords ' foo  bar\t foo '
 
-			assert.ok classifier.classes.baz
-			assert.deepEqual bag, classifier.classes.baz.words
-			assert.strictEqual 1, classifier.classes.baz.documents
+			assert classifier.classes.baz
+			assert isBagOfWords classifier.classes.baz.words
+			assert.strictEqual classifier.classes.baz.documents, 1
 
 			classifier.learn 'baz', ' foo bar\t foo '
-			bag.addBagOfWords classifier._bagOfWords ' foo  bar\t foo '
 
-			assert.deepEqual bag, classifier.classes.baz.words
-			assert.strictEqual 2, classifier.classes.baz.documents
+			assert isBagOfWords classifier.classes.baz.words
+			assert.strictEqual classifier.classes.baz.documents, 2
 
 		it 'increases `documents` correctly', () ->
 			classifier = naiveBayesClassifier()
 			expected = classifier.documents
 
 			classifier.learn 'baz', 'foo'
-			assert.strictEqual expected + 1, classifier.documents
+			assert.strictEqual classifier.documents, expected + 1
 
 			classifier.learn 'baz', 'bar'
-			assert.strictEqual expected + 2, classifier.documents
+			assert.strictEqual classifier.documents, expected + 2
 
 		it 'adds words to `vocabulary` correctly', () ->
 			classifier = naiveBayesClassifier()
 
 			classifier.learn 'baz', 'one! two!!'
-			assert.strictEqual true, classifier.vocabulary._w.one
-			assert.strictEqual true, classifier.vocabulary._w.two
-			assert.strictEqual 2, classifier.vocabulary.size
+			assert.strictEqual classifier.vocabulary.has('one'), true
+			assert.strictEqual classifier.vocabulary.has('two'), true
+			assert.strictEqual classifier.vocabulary.words().length, 2
 
 			classifier.learn 'baz', 'three?'
-			assert.strictEqual true, classifier.vocabulary._w.one
-			assert.strictEqual true, classifier.vocabulary._w.two
-			assert.strictEqual true, classifier.vocabulary._w.three
-			assert.strictEqual 3, classifier.vocabulary.size
+			assert.strictEqual classifier.vocabulary.has('one'), true
+			assert.strictEqual classifier.vocabulary.has('two'), true
+			assert.strictEqual classifier.vocabulary.has('three'), true
+			assert.strictEqual classifier.vocabulary.words().length, 3
 
 		it 'returns the instance', () ->
 			classifier = naiveBayesClassifier()
@@ -108,19 +100,16 @@ describe 'NaiveBayesClassifier', () ->
 		it 'calculates the probability of a bag of words given a class correctly', () ->
 			# example from https://www.youtube.com/watch?v=pc36aYTP44o
 			classifier = naiveBayesClassifier()
-			classifier.learn 'c', 'chinese beijing chinese'
-			classifier.learn 'c', 'chinese chinese shanghai'
-			classifier.learn 'c', 'chinese macao'
-			classifier.learn 'j', 'tokyo japan chinese'
+			classifier.learn d.class, d.document for d in data
 			bag = classifier._bagOfWords 'chinese chinese chinese tokyo japan'
 
 			expected = (0.00030121377997263).toFixed 8
-			actual = (classifier._pD 'c', bag).toFixed 8
-			assert.strictEqual expected, actual
+			actual = (classifier._pD 'chinese', bag).toFixed 8
+			assert.strictEqual actual, expected
 
 			expected = (0.000135480702467442).toFixed 8
-			actual = (classifier._pD 'j', bag).toFixed 8
-			assert.strictEqual expected, actual
+			actual = (classifier._pD 'japanese', bag).toFixed 8
+			assert.strictEqual actual, expected
 
 
 
@@ -129,20 +118,17 @@ describe 'NaiveBayesClassifier', () ->
 		it 'calculates the probabilies of a document for every class correctly', () ->
 			# example from https://www.youtube.com/watch?v=pc36aYTP44o
 			classifier = naiveBayesClassifier()
-			classifier.learn 'chinese', 'chinese beijing chinese'
-			classifier.learn 'chinese', 'chinese chinese shanghai'
-			classifier.learn 'chinese', 'chinese macao'
-			classifier.learn 'japanese', 'tokyo japan chinese'
+			classifier.learn d.class, d.document for d in data
 			probabilities = classifier.probabilities 'chinese chinese chinese tokyo japan'
 			bag = classifier._bagOfWords 'chinese chinese chinese tokyo japan'
 
 			expected = (classifier._pD 'chinese', bag).toFixed 8
 			actual = (probabilities.chinese).toFixed 8
-			assert.strictEqual expected, actual
+			assert.strictEqual actual, expected
 
 			expected = (classifier._pD 'japanese', bag).toFixed 8
 			actual = (probabilities.japanese).toFixed 8
-			assert.strictEqual expected, actual
+			assert.strictEqual actual, expected
 
 
 
@@ -156,14 +142,11 @@ describe 'NaiveBayesClassifier', () ->
 			classifier.learn 'nautral', 'I dont really know what to make of this.'
 
 			expected = classifier.classify 'awesome, cool, amazing!! Yay.'
-			assert.equal 'positive', expected
+			assert.equal expected, 'positive'
 
 		it 'classifies another sample document correctly', () ->
 			classifier = naiveBayesClassifier()
-			classifier.learn 'chinese', 'chinese beijing chinese'
-			classifier.learn 'chinese', 'chinese chinese shanghai'
-			classifier.learn 'chinese', 'chinese macao'
-			classifier.learn 'japanese', 'tokyo japan chinese'
+			classifier.learn d.class, d.document for d in data
 
 			expected = classifier.classify 'chinese chinese chinese tokyo japan'
-			assert.equal 'chinese', expected
+			assert.equal expected, 'chinese'

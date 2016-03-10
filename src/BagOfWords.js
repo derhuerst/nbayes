@@ -14,6 +14,7 @@ module.exports = function () {
 			words[word] = count
 			return this
 		},
+		add: function (word) { return this.increase(word, 1)},
 
 		increase: function (word, delta) {
 			if (arguments.length < 2) delta = 1
