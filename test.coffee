@@ -1,4 +1,5 @@
-{naiveBayesClassifier, createDoc, stringToDoc} = require './index.js'
+createClassifier =         require './index.js'
+{createDoc, stringToDoc} = createClassifier
 
 data =
 	topics: Object.freeze Object.assign [
@@ -131,21 +132,21 @@ exports.stringToDoc = (t) ->
 
 
 
-exports.naiveBayesClassifier =
+exports.createClassifier =
 
 	learn: (t) ->
-		t.strictEqual (typeof naiveBayesClassifier().learn), 'function'
+		t.strictEqual (typeof createClassifier().learn), 'function'
 		t.done()
 
 	prior: (t) ->
-		nbc = naiveBayesClassifier()
+		nbc = createClassifier()
 		nbc.learn entry[0], stringToDoc(entry[1]) for entry in data.sentiment
 		t.strictEqual nbc.prior('happy'), 2/4
 		t.strictEqual nbc.prior('angry'), 1/4
 		t.done()
 
 	likelihood: (t) ->
-		nbc = naiveBayesClassifier()
+		nbc = createClassifier()
 		nbc.learn 'A', stringToDoc 'foo bar'
 		nbc.learn 'B', stringToDoc 'bar baz bar'
 		nbc.learn 'A', stringToDoc 'baz'
@@ -158,7 +159,7 @@ exports.naiveBayesClassifier =
 		t.done()
 
 	probabilities: (t) ->
-		nbc = naiveBayesClassifier()
+		nbc = createClassifier()
 		nbc.learn entry[0], stringToDoc(entry[1]) for entry in data.topics
 		probs = nbc.probabilities stringToDoc data.topics.query
 
@@ -169,7 +170,7 @@ exports.naiveBayesClassifier =
 
 	classify: (t) ->
 		for set in data
-			nbc = naiveBayesClassifier()
+			nbc = createClassifier()
 			nbc.learn entry[0], stringToDoc(entry[1]) for entry in data.sentiment
 			result = nbc.classify stringToDoc data.sentiment.query
 			t.strictEqual result, data.sentiment.expected

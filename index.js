@@ -57,7 +57,7 @@ const stringToDoc = (s) => createDoc().addWords(s
 
 // `NaiveBayesClassifier` keeps track of how often a specific word occured by class.
 // For a given document, it then computes the probability of each class.
-const naiveBayesClassifier = function () {
+const nbayes = function () {
 
 	// document 'foo foo', class 'A'
 	// document 'foo bar', class 'B'
@@ -142,4 +142,5 @@ const naiveBayesClassifier = function () {
 
 
 
-module.exports = {createDoc, naiveBayesClassifier, stringToDoc}
+Object.assign(nbayes, {createDoc, stringToDoc})
+module.exports = nbayes
