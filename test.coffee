@@ -1,4 +1,4 @@
-{naiveBayesClassifier, bagOfWords, stringToDoc} = require './index.js'
+{naiveBayesClassifier, createDoc, stringToDoc} = require './index.js'
 
 data =
 	topics: Object.freeze Object.assign [
@@ -17,68 +17,68 @@ data =
 
 
 
-exports.bagOfWords =
+exports.createDoc =
 
 	has: (t) ->
-		bag = bagOfWords()
-		t.strictEqual bag.has('foo'), false
-		bag.set 'foo', 2
-		t.strictEqual bag.has('foo'), true
+		doc = createDoc()
+		t.strictEqual doc.has('foo'), false
+		doc.set 'foo', 2
+		t.strictEqual doc.has('foo'), true
 		t.done()
 
 	get: (t) ->
-		bag = bagOfWords()
-		t.strictEqual bag.get('foo'), 0
-		bag.set 'foo', 2
-		t.strictEqual bag.get('foo'), 2
+		doc = createDoc()
+		t.strictEqual doc.get('foo'), 0
+		doc.set 'foo', 2
+		t.strictEqual doc.get('foo'), 2
 		t.done()
 
 	set: (t) ->
-		bag = bagOfWords()
-		t.strictEqual bag.set('foo', 2), bag
+		doc = createDoc()
+		t.strictEqual doc.set('foo', 2), doc
 		t.done()
 
 	increase:
 
 		'returns the instance': (t) ->
-			bag = bagOfWords()
-			t.strictEqual bag.increase('foo', 2), bag
+			doc = createDoc()
+			t.strictEqual doc.increase('foo', 2), doc
 			t.done()
 
 		'increases by `1` by default': (t) ->
-			bag = bagOfWords()
-			bag.set 'foo', 2
-			bag.increase 'foo'
-			t.strictEqual bag.get('foo'), 3
-			bag.increase 'bar'
-			t.strictEqual bag.get('bar'), 1
+			doc = createDoc()
+			doc.set 'foo', 2
+			doc.increase 'foo'
+			t.strictEqual doc.get('foo'), 3
+			doc.increase 'bar'
+			t.strictEqual doc.get('bar'), 1
 			t.done()
 
 		'increases by `n`': (t) ->
-			bag = bagOfWords()
-			bag.set 'foo', 2
-			bag.increase 'foo', 3
-			t.strictEqual bag.get('foo'), 5
-			bag.increase 'bar', 4
-			t.strictEqual bag.get('bar'), 4
+			doc = createDoc()
+			doc.set 'foo', 2
+			doc.increase 'foo', 3
+			t.strictEqual doc.get('foo'), 5
+			doc.increase 'bar', 4
+			t.strictEqual doc.get('bar'), 4
 			t.done()
 
 	sum: (t) ->
-		bag = bagOfWords()
-		bag.set 'foo', 0
-		bag.set 'bar', 1
-		bag.set 'baz', 2
-		t.strictEqual bag.sum(), 3
+		doc = createDoc()
+		doc.set 'foo', 0
+		doc.set 'bar', 1
+		doc.set 'baz', 2
+		t.strictEqual doc.sum(), 3
 		t.done()
 
 	words:
 
 		'returns defined words': (t) ->
-			bag = bagOfWords()
-			bag.set 'foo', 1
-			bag.set 'bar', 2
+			doc = createDoc()
+			doc.set 'foo', 1
+			doc.set 'bar', 2
 
-			words = bag.words()
+			words = doc.words()
 			t.strictEqual words.length, 2
 			t.ok 'foo' in words
 			t.ok 'bar' in words
@@ -86,18 +86,18 @@ exports.bagOfWords =
 			t.done()
 
 		'filters out `0`': (t) ->
-			bag = bagOfWords()
-			bag.set 'foo', 1
-			bag.set 'bar', 0
-			bag.set 'baz', 2
-			t.ok not ('bar' in bag.words())
+			doc = createDoc()
+			doc.set 'foo', 1
+			doc.set 'bar', 0
+			doc.set 'baz', 2
+			t.ok not ('bar' in doc.words())
 			t.done()
 
 	addBagOfWords: (t) ->
-		a = bagOfWords()
+		a = createDoc()
 		a.set 'foo', 4
 		a.set 'bar', 3
-		b = bagOfWords()
+		b = createDoc()
 		b.set 'bar', 2
 		b.set 'baz', 1
 
@@ -109,14 +109,14 @@ exports.bagOfWords =
 		t.done()
 
 	addWords: (t) ->
-		bag = bagOfWords()
-		bag.set 'foo', 2
-		bag.set 'bar', 1
+		doc = createDoc()
+		doc.set 'foo', 2
+		doc.set 'bar', 1
 
-		t.strictEqual bag.addWords(['bar', 'baz']), bag
-		t.strictEqual 2, bag.get 'foo'
-		t.strictEqual 2, bag.get 'bar'
-		t.strictEqual 1, bag.get 'baz'
+		t.strictEqual doc.addWords(['bar', 'baz']), doc
+		t.strictEqual 2, doc.get 'foo'
+		t.strictEqual 2, doc.get 'bar'
+		t.strictEqual 1, doc.get 'baz'
 
 		t.done()
 

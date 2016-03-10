@@ -1,7 +1,7 @@
 'use strict'
 
-// `bagOfWords` is used to count how often a specific word occurs.
-const bagOfWords = function () {
+// `createDoc` is used to count how often a specific word occurs.
+const createDoc = function () {
 	let words = Object.create(null)
 	let sum = 0
 
@@ -28,9 +28,9 @@ const bagOfWords = function () {
 		words: () => Object.keys(words).filter((k) => words[k] !== 0),
 
 
-		addBagOfWords: function (bagOfWords) {
-			for (let word of bagOfWords.words()) {
-				this.increase(word, bagOfWords.get(word))
+		addBagOfWords: function (doc) {
+			for (let word of doc.words()) {
+				this.increase(word, doc.get(word))
 			}
 			return this
 		},
@@ -47,7 +47,7 @@ const bagOfWords = function () {
 
 
 
-const stringToDoc = (s) => bagOfWords().addWords(s
+const stringToDoc = (s) => createDoc().addWords(s
 	.replace(/[^\w\s]/g, ' ')
 	.split(/\s+/)
 	.filter((word) => word.length > 0)
@@ -64,9 +64,9 @@ const naiveBayesClassifier = function () {
 	// document 'bar bar', class 'B'
 
 	let wordsByClass = {}
-	// A: bagOfWords(foo: 2)
-	// B: bagOfWords(foo: 1, bar: 3)
-	let words = bagOfWords() // vocabulary of all words
+	// A: createDoc(foo: 2)
+	// B: createDoc(foo: 1, bar: 3)
+	let words = createDoc() // vocabulary of all words
 	let docsByClass = {} // A: 1, B: 2
 	let docs = 0 // list of all docs, 3
 
@@ -74,7 +74,7 @@ const naiveBayesClassifier = function () {
 
 		// Tags words of a document as being of a class.
 		learn: function (_class, wordsInDoc) {
-			if (!(_class in wordsByClass)) wordsByClass[_class] = bagOfWords()
+			if (!(_class in wordsByClass)) wordsByClass[_class] = createDoc()
 			wordsByClass[_class].addBagOfWords(wordsInDoc)
 			words.addBagOfWords(wordsInDoc)
 
@@ -90,10 +90,10 @@ const naiveBayesClassifier = function () {
 		// Computes the probability of a class out of all classes, also called *prior*.
 		prior: (_class) => (docsByClass[_class] / docs),
 
-		// Computes the probability of a bag of words, given a class, also called *likelihood*.
-		likelihood: function (_class, bag) {
+		// Computes the probability of a `doc`, given a class, also called *likelihood*.
+		likelihood: function (_class, doc) {
 			let result = 1
-			for (let word of bag.words()) {
+			for (let word of doc.words()) {
 
 				// Probability of the word given the class.
 				let pOfWord = (
@@ -104,7 +104,7 @@ const naiveBayesClassifier = function () {
 					+ words.words().length  // # of different words in all documents of all classes
 				)
 				// A word may occur more than once in the document.
-				result *= Math.pow(pOfWord, bag.get(word))
+				result *= Math.pow(pOfWord, doc.get(word))
 
 			}
 			return result
@@ -142,4 +142,4 @@ const naiveBayesClassifier = function () {
 
 
 
-module.exports = {bagOfWords, naiveBayesClassifier, stringToDoc}
+module.exports = {createDoc, naiveBayesClassifier, stringToDoc}
