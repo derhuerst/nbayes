@@ -1,73 +1,45 @@
-'use strict';
+'use strict'
 
-/*
- * `BagOfWords` can be used to count how often a specific word occurs.
- */
-module.exports = {
+// `bagOfWords` is used to count how often a specific word occurs.
+module.exports = function () {
+	let words = Object.create(null)
+	let sum = 0
 
+	return {
 
+		has: (word) => (word in words),
+		get: (word) => (word in words ? words[word] : 0),
+		set: function (word, count) {
+			sum += count - this.get(word)
+			words[word] = count
+			return this
+		},
 
-	// Initialize the instance.
-	init: function () {
-		this._i = {};
-		this.total = 0;
+		increase: function (word, delta) {
+			if (arguments.length < 2) delta = 1
+			if (!(word in words)) words[word] = 0
+			words[word] += delta
+			sum += delta
+			return this
+		},
 
-		return this;
-	},
-
-
-
-	// Set the counter for `item` to `n`.
-	set: function (item, n) {
-		if (item === '') return this;
-
-		this._i[item] = n;
-
-		return this;
-	},
-
-	// Return the counter for `item`.
-	get: function (item) {
-		return this._i[item] || 0;
-	},
-
-	// Add `n` to the counter for `item`.
-	increase: function (item, n) {
-		if (item === '') return this;
-
-		if (!this._i[item])
-			this._i[item] = n;
-		else
-			this._i[item] += n;
-		this.total += n;
-
-		return this;
-	},
+		sum: () => sum,
+		words: () => Object.keys(words).filter((k) => words[k] !== 0),
 
 
+		addBagOfWords: function (bagOfWords) {
+			for (let word of bagOfWords.words()) {
+				this.increase(word, bagOfWords.get(word))
+			}
+			return this
+		},
 
-	// Add the value of each counter in another `bagOfWords` to this instance.
-	addBagOfWords: function (bagOfWords) {
-		var i;
-
-		for (i in bagOfWords._i) {
-			if (!bagOfWords._i.hasOwnProperty(i)) continue;
-			this.increase(i, bagOfWords.get(i));
+		addWords: function (words) {
+			for (let word of words) {
+				this.increase(word, 1)
+			}
+			return this
 		}
 
-		return this;
-	},
-
-	// Increase the counter for each word in `words` by `1`.
-	addWords: function (words) {
-		var i, length;
-		for (i = 0, length = words.length; i < length; i++) {
-			this.increase(words[i], 1);
-		}
-
-		return this;
 	}
-
-
-
-};
+}

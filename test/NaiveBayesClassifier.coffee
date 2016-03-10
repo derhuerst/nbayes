@@ -14,10 +14,7 @@ vocabulary = () ->
 	instance = Object.create Vocabulary
 	return instance.init()
 
-BagOfWords =		require '../src/BagOfWords.js'
-bagOfWords = () ->
-	instance = Object.create BagOfWords
-	return instance.init()
+bagOfWords =		require '../src/BagOfWords.js'
 
 
 

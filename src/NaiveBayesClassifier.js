@@ -1,7 +1,7 @@
 'use strict';
 
 var Vocabulary =	require('./Vocabulary.js')
-var BagOfWords =	require('./BagOfWords.js')
+var bagOfWords =	require('./BagOfWords.js')
 
 
 
@@ -114,10 +114,7 @@ module.exports = {
 	},
 
 	// Create a `BagOfWords` from a document `d`.
-	_bagOfWords: function (d) {
-		var result = Object.create(BagOfWords).init();
-		return result.addWords(d.replace(/[^\w\s]/g, ' ').split(/\s+/));
-	}
+	_bagOfWords: (d) => bagOfWords().addWords(d.replace(/[^\w\s]/g, ' ').split(/\s+/))
 
 
 

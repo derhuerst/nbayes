@@ -38,14 +38,8 @@ module.exports = {
 
 	// `add` every word in the `bagOfWords` to this instance.
 	addBagOfWords: function (bagOfWords) {
-		var i;
-
-		for (i in bagOfWords._i) {
-			if (!bagOfWords._i.hasOwnProperty(i)) continue;
-			this.add(i);
-		}
-
-		return this;
+		for (let word of bagOfWords.words()) { this.add(word) }
+		return this
 	}
 
 
