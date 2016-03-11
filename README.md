@@ -15,7 +15,7 @@ classifier.learn('happy',   nbayes.stringToDoc('Sweet, this is incredibly amazin
 classifier.learn('angry',   nbayes.stringToDoc('terrible, shitty thing. Damn. This Sucks!!'))
 classifier.learn('neutral', nbayes.stringToDoc('I dont really know what to make of this.'))
 
-c.classify(c.stringToDoc('awesome, cool, amazing!! Yay.'))
+classifier.classify(nbayes.stringToDoc('awesome, cool, amazing!! Yay.'))
 // -> 'happy'
 ```
 
@@ -69,11 +69,13 @@ d.words() // -> 2
 
 ### `nbayes.stringToDoc()`
 
-Returns a [document](#nbayescreatedoc) from the string. Special characters will be ignored.
+Returns a [document](#nbayescreatedoc) from the string. Special characters will be ignored. Everything will be lowercase.
+
+*Note: It is probably a better idea to use a proper tokenizer/stemmer to support non-Latin languages and to get more accurate results.*
 
 ```js
 nbayes.stringToDoc('awesome, amazing!! Yay.').words()
-// -> ['awesome', 'amazing', 'Yay']
+// -> ['awesome', 'amazing', 'yay']
 ```
 
 
@@ -94,8 +96,8 @@ c.classify(c.stringToDoc('awesome, cool, amazing!! Yay.'))
 // -> 'happy'
 c.probabilities(c.stringToDoc('awesome, cool, amazing!! Yay.'))
 // -> { happy: 0.000001…,
-//      angry: 2.384…,
-//      neutral: 1.665… }
+//      angry: 2.384…e-7,
+//      neutral: 1.665…e-7 }
 ```
 
 #### Methods
