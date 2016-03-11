@@ -52,6 +52,7 @@ const stringToDoc = (s) => createDoc().addWords(s
 	.replace(/[^\w\s]/g, ' ')
 	.split(/\s+/)
 	.filter((word) => word.length > 0)
+	.map((word) => word.toLowerCase())
 )
 
 
