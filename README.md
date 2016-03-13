@@ -23,8 +23,8 @@ classifier.classify(nbayes.stringToDoc('awesome, cool, amazing!! Yay.'))
 
 [![npm version](https://img.shields.io/npm/v/nbayes.svg)](https://www.npmjs.com/package/nbayes)
 [![bower version](https://img.shields.io/bower/v/nbayes.svg)](bower.json)
-[![build status](https://img.shields.io/travis/derhuerst/velo.svg)](https://travis-ci.org/derhuerst/velo)
-[![dev dependency status](https://img.shields.io/david/dev/derhuerst/velo.svg)](https://david-dm.org/derhuerst/velo#info=devDependencies)
+[![build status](https://img.shields.io/travis/derhuerst/nbayes.svg)](https://travis-ci.org/derhuerst/nbayes)
+[![dev dependency status](https://img.shields.io/david/dev/derhuerst/nbayes.svg)](https://david-dm.org/derhuerst/nbayes#info=devDependencies)
 
 
 ## Installing
