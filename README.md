@@ -19,7 +19,7 @@ classifier.classify(nbayes.stringToDoc('awesome, cool, amazing!! Yay.'))
 // -> 'happy'
 ```
 
-*nbayes* offers a simple and straightforward API, keeping it **below 3kb (minified)**. It is an **[MIT-licensed](LICENSE)** rewrite of [ttezel/bayes](https://github.com/ttezel/bayes) and [thoroughly tested](test.coffee).
+*nbayes* offers a simple and straightforward API, keeping it **below 3kb (minified)**. It is an **[ISC-licensed](LICENSE)** rewrite of [ttezel/bayes](https://github.com/ttezel/bayes) and [thoroughly tested](test.coffee).
 
 [![npm version](https://img.shields.io/npm/v/nbayes.svg)](https://www.npmjs.com/package/nbayes)
 [![bower version](https://img.shields.io/bower/v/nbayes.svg)](bower.json)
@@ -71,7 +71,7 @@ d.words() // -> 2
 
 Returns a [document](#nbayescreatedoc) from the string. Special characters will be ignored. Everything will be lowercase.
 
-*Note: It is probably a better idea to use a proper tokenizer/stemmer to support non-Latin languages and to get more accurate results.*
+*Note: It is probably a better idea to use a proper tokenizer/stemmer and to [remove stopwords](https://github.com/fergiemcdowall/stopword) to support non-Latin languages and to get more accurate results.*
 
 ```js
 nbayes.stringToDoc('awesome, amazing!! Yay.').words()
