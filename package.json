@@ -10,10 +10,10 @@
 	"repository":  "https://github.com/derhuerst/nbayes.git",
 	"license":     "ISC",
 	"devDependencies": {
-		"coffee-script": "^1.10",
-		"nodeunit":      "^0.9.1",
+		"coffee-script": "^1.11.1",
+		"nodeunit":      "^0.10.2",
 		"watchy":        "^0.6.6",
-		"browserify":    "^13",
+		"browserify":    "^13.1",
 		"uglify-js":     "mishoo/UglifyJS2#harmony"
 	},
 	"scripts": {

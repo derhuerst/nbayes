@@ -19,12 +19,13 @@ classifier.classify(nbayes.stringToDoc('awesome, cool, amazing!! Yay.'))
 // -> 'happy'
 ```
 
-*nbayes* offers a simple and straightforward API, keeping it **below 3kb (minified)**. It is an **[ISC-licensed](LICENSE)** rewrite of [ttezel/bayes](https://github.com/ttezel/bayes) and [thoroughly tested](test.coffee).
+*nbayes* offers a simple and straightforward API, keeping it **below 3kb (minified)**. It is a rewrite of [ttezel/bayes](https://github.com/ttezel/bayes) and [thoroughly tested](test.coffee).
 
 [![npm version](https://img.shields.io/npm/v/nbayes.svg)](https://www.npmjs.com/package/nbayes)
 [![bower version](https://img.shields.io/bower/v/nbayes.svg)](bower.json)
 [![build status](https://img.shields.io/travis/derhuerst/nbayes.svg)](https://travis-ci.org/derhuerst/nbayes)
 [![dev dependency status](https://img.shields.io/david/dev/derhuerst/nbayes.svg)](https://david-dm.org/derhuerst/nbayes#info=devDependencies)
+![ISC-licensed](https://img.shields.io/github/license/derhuerst/nbayes.svg)
 
 
 ## Installing
