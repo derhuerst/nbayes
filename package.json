@@ -10,19 +10,17 @@
 	"repository":  "https://github.com/derhuerst/nbayes.git",
 	"license":     "ISC",
 	"devDependencies": {
-		"coffee-script": "^1.11.1",
-		"nodeunit":      "^0.10.2",
-		"watchy":        "^0.6.6",
+		"tape": "^4.6.2",
+		"tap-min": "^1.1",
 		"browserify":    "^13.1",
 		"uglify-js":     "mishoo/UglifyJS2#harmony"
 	},
 	"scripts": {
-		"test":       "nodeunit --reporter minimal test.coffee",
-		"test:watch": "watchy -s -w . nodeunit --reporter minimal test.coffee",
+		"test": "node test.js | tap-min",
 		"build":      "browserify index.js -s nbayes --bare > dist/nbayes.js",
 		"minify":     "uglifyjs dist/nbayes.js -cm --screw-ie8 > dist/nbayes.min.js",
 		"dist":       "npm run build && npm run minify",
 		"prepublish": "npm test && npm run dist"
 	},
-	"engine": "node >= 5"
+	"engine": "node >= 6"
 }
