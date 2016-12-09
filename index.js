@@ -1,5 +1,10 @@
 'use strict'
 
+const _whitespace = require('whitespace-regex')().toString()
+const whitespace = () => new RegExp(_whitespace.slice(2, -2))
+
+
+
 // `createDoc` is used to count how often a specific word occurs.
 const createDoc = function () {
 	let words = Object.create(null)
@@ -47,12 +52,13 @@ const createDoc = function () {
 
 
 
-const stringToDoc = (s) => createDoc().addWords(s
-	.replace(/[^\w\s]/g, ' ')
-	.split(/\s+/)
-	.filter((word) => word.length > 0)
-	.map((word) => word.toLowerCase())
-)
+const stringToDoc = (s) =>
+	createDoc().addWords(
+		s
+		.split(whitespace())
+		.filter((word) => word.length > 0)
+		.map((word) => word.toLowerCase())
+	)
 
 
 

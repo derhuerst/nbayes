@@ -122,12 +122,13 @@ test('doc.addWords', (t) => {
 
 
 test('stringToDoc', (t) => {
-	t.plan(3)
-	const d = stringToDoc(' foo bar\t foo')
+	t.plan(4)
+	const d = stringToDoc(' foo би bar\t foo')
 
 	t.strictEqual(d.get('foo'), 2)
+	t.strictEqual(d.get('би'), 1)
 	t.strictEqual(d.get('bar'), 1)
-	t.strictEqual(d.words().length, 2)
+	t.strictEqual(d.words().length, 3)
 })
 
 
