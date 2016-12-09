@@ -1,7 +1,6 @@
 'use strict'
 
-const _whitespace = require('whitespace-regex')().toString()
-const whitespace = () => new RegExp(_whitespace.slice(2, -2))
+const matchWord = require('word-regex')()
 
 
 
@@ -55,8 +54,7 @@ const createDoc = function () {
 const stringToDoc = (s) =>
 	createDoc().addWords(
 		s
-		.split(whitespace())
-		.filter((word) => word.length > 0)
+		.match(matchWord)
 		.map((word) => word.toLowerCase())
 	)
 

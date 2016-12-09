@@ -1,7 +1,7 @@
 {
 	"name":        "nbayes",
 	"description": "A Naive Bayes Classifier.",
-	"version":     "3.0.1",
+	"version":     "3.0.2",
 	"main":        "index.js",
 	"files":       ["index.js"],
 	"keywords":    ["naive", "bayes", "classifier", "classify", "categorizer", "categorize", "nlp", "nlu"],
@@ -12,7 +12,7 @@
 	"license":     "ISC",
 	"engines":     {"node": ">=6"},
 	"dependencies": {
-		"whitespace-regex": "^0.1.2"
+		"word-regex": "^0.1.1"
 	},
 	"devDependencies": {
 		"tape": "^4.6.3",
