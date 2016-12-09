@@ -7,15 +7,16 @@
 	"keywords":    ["naive", "bayes", "classifier", "classify", "categorizer", "categorize", "nlp", "nlu"],
 	"author":      "Jannis R <mail@jannisr.de>",
 	"homepage":    "https://github.com/derhuerst/nbayes",
-	"repository":  "https://github.com/derhuerst/nbayes.git",
+	"repository":  "derhuerst/nbayes",
+	"bugs":        "https://github.com/derhuerst/nbayes/issues",
 	"license":     "ISC",
+	"engines":     {"node": ">=6"},
 	"devDependencies": {
-		"tape": "^4.6.2",
+		"tape": "^4.6.3",
 		"tap-min": "^1.1"
 	},
 	"scripts": {
 		"test": "node test.js | tap-min",
 		"prepublish": "npm test"
-	},
-	"engine": "node >= 6"
+	}
 }

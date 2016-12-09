@@ -1,6 +1,12 @@
 # nbayes
 
-***nbayes* is a lightweight [Naive Bayes Classifier](https://www.youtube.com/watch?v=DdYSMwEWbd4) written in vanilla JavaScript.** It classifies a document (arbitrary piece of text) among the classes (arbitrarily named categories) it has been trained with before. This is all basic on [simple mathematics](https://www.youtube.com/watch?v=DdYSMwEWbd4). As an example, you could use *nbayes* to answer the following questions.
+***nbayes* is a lightweight [Naive Bayes Classifier](https://www.youtube.com/watch?v=DdYSMwEWbd4) written in vanilla JavaScript.** It classifies a document (arbitrary piece of text) among the classes (arbitrarily named categories) it has been trained with before. This is all based on [simple mathematics](https://www.youtube.com/watch?v=DdYSMwEWbd4). As an example, you could use *nbayes* to answer the following questions.
+
+[![npm version](https://img.shields.io/npm/v/nbayes.svg)](https://www.npmjs.com/package/nbayes)
+[![build status](https://img.shields.io/travis/derhuerst/nbayes.svg)](https://travis-ci.org/derhuerst/nbayes)
+[![dependency status](https://img.shields.io/david/derhuerst/nbayes.svg)](https://david-dm.org/derhuerst/nbayes)
+[![dev dependency status](https://img.shields.io/david/dev/derhuerst/nbayes.svg)](https://david-dm.org/derhuerst/nbayes#info=devDependencies)
+![ISC-licensed](https://img.shields.io/github/license/derhuerst/nbayes.svg)
 
 - Is an email **spam**, or **not spam** ?
 - Is a news article about **technology**, **politics**, or **sports** ?
@@ -19,12 +25,7 @@ classifier.classify(nbayes.stringToDoc('awesome, cool, amazing!! Yay.'))
 // -> 'happy'
 ```
 
-*nbayes* offers a simple and straightforward API, keeping it **below 3kb (minified)**. It is a rewrite of [ttezel/bayes](https://github.com/ttezel/bayes) and [thoroughly tested](test.coffee).
-
-[![npm version](https://img.shields.io/npm/v/nbayes.svg)](https://www.npmjs.com/package/nbayes)
-[![build status](https://img.shields.io/travis/derhuerst/nbayes.svg)](https://travis-ci.org/derhuerst/nbayes)
-[![dev dependency status](https://img.shields.io/david/dev/derhuerst/nbayes.svg)](https://david-dm.org/derhuerst/nbayes#info=devDependencies)
-![ISC-licensed](https://img.shields.io/github/license/derhuerst/nbayes.svg)
+*nbayes* offers a simple and straightforward API, keeping it **below 3kb (minified)**. It is a rewrite of [ttezel/bayes](https://github.com/ttezel/bayes) and [thoroughly tested](test.js).
 
 
 ## Installing
