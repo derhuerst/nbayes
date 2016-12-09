@@ -2,8 +2,8 @@
 	"name":        "nbayes",
 	"description": "A Naive Bayes Classifier.",
 	"version":     "3.0.0",
-	"main":        "./index.js",
-	"files":       ["./index.js"],
+	"main":        "index.js",
+	"files":       ["index.js"],
 	"keywords":    ["naive", "bayes", "classifier", "classify", "categorizer", "categorize", "nlp", "nlu"],
 	"author":      "Jannis R <mail@jannisr.de>",
 	"homepage":    "https://github.com/derhuerst/nbayes",
@@ -11,16 +11,11 @@
 	"license":     "ISC",
 	"devDependencies": {
 		"tape": "^4.6.2",
-		"tap-min": "^1.1",
-		"browserify":    "^13.1",
-		"uglify-js":     "mishoo/UglifyJS2#harmony"
+		"tap-min": "^1.1"
 	},
 	"scripts": {
 		"test": "node test.js | tap-min",
-		"build":      "browserify index.js -s nbayes --bare > dist/nbayes.js",
-		"minify":     "uglifyjs dist/nbayes.js -cm --screw-ie8 > dist/nbayes.min.js",
-		"dist":       "npm run build && npm run minify",
-		"prepublish": "npm test && npm run dist"
+		"prepublish": "npm test"
 	},
 	"engine": "node >= 6"
 }
