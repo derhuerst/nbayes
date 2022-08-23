@@ -54,7 +54,7 @@ d.has('FOO') // -> false
 d.get('foo') // -> 2
 d.get('bar') // -> 3
 d.sum() // -> 5
-d.words() // -> 2
+d.words() // -> ['foo', 'bar']
 ```
 
 #### Methods
@@ -65,7 +65,7 @@ d.words() // -> 2
 - `add(word)`: Shorthand for `increase(word, 1)`.
 - `increase(word, d = 1)`: Adds `d` to the count of `word`.
 - `sum`: Returns the sum of all word counts.
-- `words`: Returns the number of *distinct* word.
+- `words`: Returns the *distinct* words.
 
 
 ### `nbayes.stringToDoc()`
@@ -93,9 +93,9 @@ c.learn('happy',   nbayes.stringToDoc('Sweet, this is incredibly amazing, perfec
 c.learn('angry',   nbayes.stringToDoc('terrible, shitty thing. Damn. This Sucks!!'))
 c.learn('neutral', nbayes.stringToDoc('I dont really know what to make of this.'))
 
-c.classify(c.stringToDoc('awesome, cool, amazing!! Yay.'))
+c.classify(nbayes.stringToDoc('awesome, cool, amazing!! Yay.'))
 // -> 'happy'
-c.probabilities(c.stringToDoc('awesome, cool, amazing!! Yay.'))
+c.probabilities(nbayes.stringToDoc('awesome, cool, amazing!! Yay.'))
 // -> { happy: 0.000001…,
 //      angry: 2.384…e-7,
 //      neutral: 1.665…e-7 }
