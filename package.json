@@ -10,16 +10,18 @@
 	"repository":  "derhuerst/nbayes",
 	"bugs":        "https://github.com/derhuerst/nbayes/issues",
 	"license":     "ISC",
-	"engines":     {"node": ">=6"},
+	"engines": {
+		"node": ">=18"
+	},
 	"dependencies": {
 		"word-regex": "^0.1.1"
 	},
 	"devDependencies": {
-		"tape": "^5.0.0",
-		"tap-min": "^1.1"
+		"tap-min": "^2.0.0",
+		"tape": "^5.0.0"
 	},
 	"scripts": {
 		"test": "node test.js | tap-min",
-		"prepublish": "npm test"
+		"prepublishOnly": "npm test"
 	}
 }
