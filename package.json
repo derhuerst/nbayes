@@ -21,7 +21,8 @@
 		"tape": "^5.0.0"
 	},
 	"scripts": {
+		"lint": "eslint .",
 		"test": "node test.js | tap-min",
-		"prepublishOnly": "npm test"
+		"prepublishOnly": "npm run lint && npm test"
 	}
 }
