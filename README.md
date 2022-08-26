@@ -7,6 +7,8 @@
 [![dependency status](https://img.shields.io/david/derhuerst/nbayes.svg)](https://david-dm.org/derhuerst/nbayes)
 [![dev dependency status](https://img.shields.io/david/dev/derhuerst/nbayes.svg)](https://david-dm.org/derhuerst/nbayes#info=devDependencies)
 ![ISC-licensed](https://img.shields.io/github/license/derhuerst/nbayes.svg)
+[![support me via GitHub Sponsors](https://img.shields.io/badge/support%20me-donate-fa7664.svg)](https://github.com/sponsors/derhuerst)
+[![chat with me on Twitter](https://img.shields.io/badge/chat%20with%20me-on%20Twitter-1da1f2.svg)](https://twitter.com/derhuerst)
 
 - Is an email **spam**, or **not spam** ?
 - Is a news article about **technology**, **politics**, or **sports** ?
