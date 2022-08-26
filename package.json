@@ -1,15 +1,26 @@
 {
-	"name":        "nbayes",
+	"name": "nbayes",
 	"description": "A Naive Bayes Classifier.",
-	"version":     "3.0.3",
-	"main":        "index.js",
-	"files":       ["index.js"],
-	"keywords":    ["naive", "bayes", "classifier", "classify", "categorizer", "categorize", "nlp", "nlu"],
-	"author":      "Jannis R <mail@jannisr.de>",
-	"homepage":    "https://github.com/derhuerst/nbayes",
-	"repository":  "derhuerst/nbayes",
-	"bugs":        "https://github.com/derhuerst/nbayes/issues",
-	"license":     "ISC",
+	"version": "4.0.0",
+	"main": "index.js",
+	"files": [
+		"index.js"
+	],
+	"keywords": [
+		"naive",
+		"bayes",
+		"classifier",
+		"classify",
+		"categorizer",
+		"categorize",
+		"nlp",
+		"nlu"
+	],
+	"author": "Jannis R <mail@jannisr.de>",
+	"homepage": "https://github.com/derhuerst/nbayes",
+	"repository": "derhuerst/nbayes",
+	"bugs": "https://github.com/derhuerst/nbayes/issues",
+	"license": "ISC",
 	"engines": {
 		"node": ">=18"
 	},
